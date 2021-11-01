@@ -20,4 +20,11 @@ router.get('/', async (req, res) => {
   })
 })
 
+router.get('/login', async (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    layout: 'bs-main'
+  })
+})
+
 module.exports = router
