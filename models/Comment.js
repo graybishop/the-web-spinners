@@ -1,3 +1,5 @@
+//Model can be DELETED, I think -JS
+
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
