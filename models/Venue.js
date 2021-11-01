@@ -9,6 +9,10 @@ Venue.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING(3475),
+      allowNull: false,
+    },
     city: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -45,5 +49,8 @@ Venue.init(
   {
     sequelize,
     modelName: 'venue',
+    timestamps: false
   }
 );
+
+module.exports = Venue
