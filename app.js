@@ -4,13 +4,13 @@ const sequelize = require('./config/connection.js')
 
 const app = express()
 const port = process.env.PORT || '3001'
-const {Venue} = require('./models/index.js')
+// eslint-disable-next-line no-unused-vars
+const {Venue, Event} = require('./models/index.js')
 
 app.use(morgan('dev'))
 
-
 const init = async () => {
-    await sequelize.sync({alter:true})
+    await sequelize.sync()
     app.listen(port, ()=>{
       console.log(`listening on http://localhost:3001/`)
     })

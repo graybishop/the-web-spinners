@@ -9,11 +9,11 @@ Review.belongsTo(User)
 Venue.hasMany(Review)
 Review.belongsTo(Venue)
 
-Event.hasOne(Venue)
-Venue.belongsToMany(Event)
+Venue.hasMany(Event)
+Event.belongsTo(Venue)
 
 User.hasMany(Event)
 Event.belongsTo(User)
 
 
-module.exports = {Venue, User, Review}
+module.exports = {Venue, User, Review, Event}
