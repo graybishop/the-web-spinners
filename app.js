@@ -6,8 +6,9 @@ const session = require('express-session');
 const app = express()
 const port = process.env.PORT || '3001'
 const {Venue} = require('./models/index.js')
-
+const routes = require('./routes/index.js')
 app.use(morgan('dev'))
+app.use(routes)
 
 // create a new sequelize store using the express-session package
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
