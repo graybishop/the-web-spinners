@@ -4,6 +4,9 @@ const sequelize = require('./config/connection.js')
 const session = require('express-session');
 const path = require('path');
 
+//importing express handlebars
+const expressHandlebars = require('express-handlebars');
+
 const app = express()
 const port = process.env.PORT || '3001'
 // eslint-disable-next-line no-unused-vars
@@ -12,6 +15,12 @@ const {Venue,Event} = require('./models/index.js')
 const routes = require('./routes/index.js')
 app.use(morgan('dev'))
 app.use(routes)
+
+//settting viewengine to handlebars
+const hbs = expressHandlebars.create();
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
 
 // create a new sequelize store using the express-session package
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
