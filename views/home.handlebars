@@ -8,28 +8,32 @@
   <div class="row">
     <h3 class="center-align">Featured Venues!</h3>
   </div>
-  <div class="row">
+</section>
+<div class="row">
+  <div class="carousel">
     {{#each venues as |venue|}}
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l4 carousel-item">
       <div class="card hoverable blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">Venue 1</span>
-          <p>lorem epsum.</p>
+          <span class="card-title">{{venue.location}}</span>
+          <p>Located in: {{venue.city}}, {{venue.state}}</p>
+          <p>{{venue.description}}</p>
         </div>
         <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
+          <a href="/venues/{{venue.id}}">Browse Reviews</a>
+          <a href="/venues/{{venue.id}}">Book an Event</a>
         </div>
       </div>
     </div>
     {{/each}}
   </div>
-</section>
-<section class="row">
+</div>
+<section class="row teal darken-4-2 white-text">
   <div id="nameTitle" class="col s12 teal darken-4-2 white-text">
     <h3 class="center-align">Find venues in your city!</h3>
     <p class="center-align"></p>
-    <div class="col s12">
+  </div>
+  <div class="container">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">textsms</i>
@@ -37,6 +41,17 @@
           <label for="autocomplete-input">Autocomplete</label>
         </div>
       </div>
-    </div>
   </div>
+
 </section>
+
+{{!-- Carousel Script --}}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let elems = document.querySelectorAll('.carousel');
+    let instances = M.Carousel.init(elems, {
+      dist: -50,
+      numVisible: 7,
+    });
+  });
+</script>
