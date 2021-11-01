@@ -19,7 +19,10 @@
   },
   "homepage": "https://github.com/graybishop/the-web-spinners#readme",
   "devDependencies": {
-    "eslint": "^8.1.0"
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.1.0",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -28,6 +31,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "express-session": "^1.17.2",
+    "materialize-css": "^1.0.0-rc.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.2",
     "sequelize": "^6.8.0"
