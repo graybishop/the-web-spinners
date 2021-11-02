@@ -16,7 +16,7 @@
     {{/each}}
 </section>
 <section class="bg-green text-white">
-  <div id="" class="">
+  <div class="py-2">
     <h3 class="text-center text-3xl">Find venues in your city!</h3>
   </div>
 
@@ -24,13 +24,13 @@
     <div class="flex flex-row justify-center">
       <div class="">
         <form class="d-flex mb-2" id='homeSearchForm'>
-          <input class="form-control me-2" type="search" placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
-          <button class="btn btn-outline-primary" type="submit">Search</button>
+          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
         </form>
       </div>
     </div>
     {{!-- Holds result cards from search bar --}}
-    <div class="row justify-content-center text-dark" id='resultsContainer'>
+    <div class="container mx-auto px-4 flex flex-row flex-wrap text-black" id='resultsContainer'>
     </div>
   </div>
 </section>
