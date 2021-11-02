@@ -15,5 +15,7 @@ Event.belongsTo(Venue)
 User.hasMany(Event)
 Event.belongsTo(User)
 
+User.belongsToMany(Venue, { through: 'SavedUserVenue' })
+Venue.belongsToMany(User, { through: 'SavedUserVenue' })
 
 module.exports = {Venue, User, Review, Event}

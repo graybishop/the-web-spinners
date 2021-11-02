@@ -1,17 +1,14 @@
 const router = require('express').Router();
-const { User } = require('../../models');
-
-router.get('/', (req, res) => {
-    res.send(`you've got this`)
-})
+const { User, Venue } = require('../../models');
 
 router.post('/', async (req, res) => {
+  console.log(req.body)
    try {
     const userData = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+      req.session.userId = userData.id;
+      req.session.loggedIn = true;
 
       res.status(200).json(userData);
     });
@@ -41,8 +38,8 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+      req.session.userId = userData.id;
+      req.session.loggedIn = true;
       
       res.json({ user: userData, message: 'You are now logged in!' });
     });
@@ -53,7 +50,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
     });
@@ -61,5 +58,22 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+router.post('/saved-venues', async (req,res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+
+  let user = await User.findByPk(req.session.userId)
+  let venue = await Venue.findByPk(req.body.venue)
+  if(user && venue){
+    let result = await user.addSavedUserVenue(venue) 
+    res.json({message: 'Venue added', result})
+  } else {
+    res.status(404).json({message: 'Venue or user not found'})
+  }
+
+})
 
 module.exports = router;
