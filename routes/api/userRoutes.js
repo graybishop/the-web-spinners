@@ -1,9 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
-
-router.get('/', (req, res) => {
-    res.send(`you've got this`)
-})
+const { User, Venue } = require('../../models');
 
 router.post('/', async (req, res) => {
    try {
@@ -61,5 +57,22 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+router.post('/users/saved-venues', async (req,res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+
+  let user = await User.findByPk(req.session.userId)
+  let venue = await Venue.findByPk(req.body.venue)
+  if(user && venue){
+    let result = await user.addSavedUserVenue(venue) 
+    res.json({message: 'Venue added', result})
+  } else {
+    res.status(404).json({message: 'Venue or user not found'})
+  }
+
+})
 
 module.exports = router;
