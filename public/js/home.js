@@ -43,7 +43,22 @@ const renderVenueCard = (venue) => {
         </div>
       </div>
   `
-  resultsContainer.insertAdjacentHTML('beforeend',htmlString)
+  let htmlString2 =
+  `<div class="flex-none px-2 md:w-3/12  sm:w-full">
+  <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
+      <div class="bg-white rounded-lg shadow-2xl w-full h-full">
+          <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
+              <h2>${venue.location}</h2>
+          </header>
+          <div class="p-2">
+              <p>${venue.description}</p>
+              <a class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5" href="/venues/${venue.id}$"> My Venue</a>
+          </div>
+      </div>
+  </div>
+</div>
+  `
+  resultsContainer.insertAdjacentHTML('beforeend',htmlString2)
 }
 
 
