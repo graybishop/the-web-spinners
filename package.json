@@ -34,6 +34,8 @@
     "materialize-css": "^1.0.0-rc.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.2",
+    "nodemon": "^2.0.14",
+    "postcss-cli": "^9.0.1",
     "sequelize": "^6.8.0"
   }
 }
