@@ -22,17 +22,14 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/venues/:id', async (req, res) => {
- 
   try {
 
-    // const venueData = await Venue.findAll({
-      
+    let result = await Venue.findByPk(req.params.id)
     
-    //   });
-
-    // const venue = venueData.get({ plain: true});
-    // console.log(venue)
-    res.render('venue');
+    res.render('venue', {
+      title: 'Login',
+      venue: result.toJSON()
+    });
   } catch (err) {
     res.status(500).json(err);
   }
