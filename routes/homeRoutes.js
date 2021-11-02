@@ -44,6 +44,11 @@ router.get('/login', async (req, res) => {
 })
 
 router.get('/dashboard', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+  
   res.render('dashboard', {
     title: 'Dashboard',
     loggedIn: req.session.loggedIn
