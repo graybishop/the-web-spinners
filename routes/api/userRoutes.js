@@ -58,7 +58,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.post('/users/saved-venues', async (req,res) => {
+router.post('/saved-venues', async (req,res) => {
   if (!req.session.loggedIn) {
     res.redirect('/login');
     return;
