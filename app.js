@@ -13,8 +13,7 @@ const port = process.env.PORT || '3001'
 const {Venue,Event} = require('./models/index.js')
 
 const routes = require('./routes/index.js')
-app.use(morgan('dev'))
-app.use(routes)
+
 
 //settting viewengine to handlebars
 const hbs = expressHandlebars.create();
@@ -37,10 +36,13 @@ const sess = {
 };
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session(sess));
+
+app.use(morgan('dev'))
+app.use(routes)
 
 const init = async () => {
     await sequelize.sync()
