@@ -28,7 +28,8 @@ router.get('/venues/:id', async (req, res) => {
     
     res.render('venue', {
       title: 'Login',
-      venue: result.toJSON()
+      venue: result.toJSON(),
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
@@ -38,6 +39,14 @@ router.get('/venues/:id', async (req, res) => {
 router.get('/login', async (req, res) => {
   res.render('login', {
     title: 'Login',
+    loggedIn: req.session.loggedIn
+  })
+})
+
+router.get('/dashboard', async (req, res) => {
+  res.render('dashboard', {
+    title: 'Dashboard',
+    loggedIn: req.session.loggedIn
   })
 })
 
