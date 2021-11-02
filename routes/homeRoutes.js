@@ -16,7 +16,8 @@ router.get('/', async (req, res) => {
 
   res.render('home', {
     title: 'Unearthly Venues',
-    venues: firstSet
+    venues: firstSet,
+    loggedIn: req.session.loggedIn
   })
 })
 
