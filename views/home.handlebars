@@ -1,57 +1,37 @@
-<section class="row">
-  <div id="nameTitle" class="col s12 teal lighten-2 white-text">
-    <h2 class="center-align">Unearthly Venues</h2>
-    <p class="center-align">Supernaturally Good Prices</p>
-  </div>
-</section>
-<section class="container">
-  <div class="row">
-    <h3 class="center-align">Featured Venues!</h3>
-  </div>
-</section>
-<div class="row">
-  <div class="carousel">
+<section class="container mx-auto px-4 flex flex-row flex-wrap">
     {{#each venues as |venue|}}
-    <div class="col s12 m6 l4 carousel-item">
-      <div class="card hoverable blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">{{venue.location}}</span>
-          <p>Located in: {{venue.city}}, {{venue.state}}</p>
-          <p>{{venue.description}}</p>
+    <div class="flex-none px-2 md:w-3/12  sm:w-full">
+        <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
+            <div class="bg-white rounded-lg shadow-2xl w-full h-full">
+                <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
+                    <h2>{{venue.location}}</h2>
+                </header>
+                <div class="p-2">
+                    <p>{{venue.description}}</p>
+                    <a class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5" href="/venues/{{venue.id}}"> My Venue</a>
+                </div>
+            </div>
         </div>
-        <div class="card-action">
-          <a href="/venues/{{venue.id}}">Browse Reviews</a>
-          <a href="/venues/{{venue.id}}">Book an Event</a>
-        </div>
-      </div>
     </div>
     {{/each}}
-  </div>
-</div>
-<section class="row teal darken-4-2 white-text">
-  <div id="nameTitle" class="col s12 teal darken-4-2 white-text">
-    <h3 class="center-align">Find venues in your city!</h3>
-    <p class="center-align"></p>
-  </div>
-  <div class="container">
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">textsms</i>
-          <input type="text" id="autocomplete-input" class="autocomplete">
-          <label for="autocomplete-input">Autocomplete</label>
-        </div>
-      </div>
-  </div>
-
 </section>
+<section class="bg-green text-white">
+  <div class="py-2">
+    <h3 class="text-center text-3xl">Find venues in your city!</h3>
+  </div>
 
-{{!-- Carousel Script --}}
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    let elems = document.querySelectorAll('.carousel');
-    let instances = M.Carousel.init(elems, {
-      dist: -50,
-      numVisible: 7,
-    });
-  });
-</script>
+  <div class="container mx-auto">
+    <div class="flex flex-row justify-center">
+      <div class="">
+        <form class="d-flex mb-2" id='homeSearchForm'>
+          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+    {{!-- Holds result cards from search bar --}}
+    <div class="container mx-auto px-4 flex flex-row flex-wrap text-black" id='resultsContainer'>
+    </div>
+  </div>
+</section>
+<script src="/js/home.js"></script>
