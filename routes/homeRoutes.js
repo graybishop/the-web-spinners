@@ -20,6 +20,30 @@ router.get('/', async (req, res) => {
   })
 })
 
+router.get('/venue/:id', async (req, res) => {
+  try {
+    const venueData = await Venue.findByPk(req.params.id, {
+      include: [
+        {
+          model: Venue,
+          attributes: ['id'],
+        },
+      ],
+    });
+
+    const venue = venueData.get({ plain: true});
+
+    res.render('venue', {
+      ...venue,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+
 router.get('/home2', async (req, res) => {
   let firstSetData = await Venue.findAll({limit:6})
   
