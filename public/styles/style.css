@@ -1,0 +1,25 @@
+:root{
+  --bg-pink: #EE6E73;
+  --bg-blue: #3C91E6;
+  --bg-black: #342E37;
+  --bg-green: #00A676;
+
+}
+
+nav{
+  background-color: var(--bg-pink);
+}
+
+.form-titles{
+  background-color: var(--bg-blue);
+  color:white;
+  margin-bottom: 0;
+}
+
+.bg-green{
+  background-color: var(--bg-green);
+}
+
+.bg-cus-black{
+  background-color: var(--bg-black);
+}
