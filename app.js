@@ -15,7 +15,7 @@ const {Venue,Event} = require('./models/index.js')
 const routes = require('./routes/index.js')
 
 
-//settting viewengine to handlebars
+//setting view engine to handlebars
 const hbs = expressHandlebars.create();
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
