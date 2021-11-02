@@ -20,23 +20,18 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.get('/venue/:id', async (req, res) => {
+router.get('/venues/:id', async (req, res) => {
+ 
   try {
-    const venueData = await Venue.findByPk(req.params.id, {
-      include: [
-        {
-          model: Venue,
-          attributes: ['id'],
-        },
-      ],
-    });
 
-    const venue = venueData.get({ plain: true});
+    // const venueData = await Venue.findAll({
+      
+    
+    //   });
 
-    res.render('venue', {
-      ...venue,
-      logged_in: req.session.logged_in
-    });
+    // const venue = venueData.get({ plain: true});
+    // console.log(venue)
+    res.render('venue');
   } catch (err) {
     res.status(500).json(err);
   }
