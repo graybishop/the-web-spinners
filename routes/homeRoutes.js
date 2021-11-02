@@ -89,6 +89,13 @@ router.get('/login', async (req, res) => {
   })
 })
 
+router.get('/login2', async (req, res) => {
+  res.render('logintw', {
+    title: 'Login',
+    layout: 'maintw'
+  })
+})
+
 router.get('/form', (req, res) => {
   res.render("form");
 });
