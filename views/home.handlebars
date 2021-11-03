@@ -22,18 +22,28 @@
 
 
 <section
-  class="container mx-auto py-4 flex flex-col flex-wrap gap-4 bg-purple-300 sm:grid sm:grid-cols-2 lg:grid-cols-3">
-  <div class="col-span-full">
-    <h2 class="text-4xl font-extrabold text-center ">Featured Venues!</h2>
-    <p class="p-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues.</p>
+  class="container mx-auto py-4 flex flex-col flex-wrap gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+  <div class="col-span-full py-8 px-4">
+    <h2 class="text-4xl font-bold">Featured Venues!</h2>
+    <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues.</p>
   </div>
   {{#each venues as |venue|}}
   <div class="bg-white rounded-lg shadow-2xl w-full flex flex-col gap-2">
     {{!-- title and image section --}}
     <div>
-      <div class="bg-gray-200 rounded-t-lg px-4">
-        <h2 class="text-xl font-extrabold">{{venue.location}}</h2>
-        <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
+      <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2" >
+        <div>
+          <h2 class="text-xl font-extrabold">{{venue.location}}</h2>
+          <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
+        </div>
+        <div class="text-2xl text-yellow-400">
+          <span class='addSavedVenue'>
+            <i class="far fa-star"></i>
+          </span>
+          <span class="hidden removeSavedVenue">
+            <i class="fas fa-star"></i>  
+          </span>
+        </div>
       </div>
       <div class="">
         <img class="object-cover w-full h-56" src="https://picsum.photos/seed/{{venue.location}}/600/400" alt="">
