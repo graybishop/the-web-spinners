@@ -1,43 +1,38 @@
 const router = require('express').Router();
 const { Event } = require('../../models');
 
-
-
-
-router.post('/events', async (req, res) => {
-  try {
-    const eventData = await Event.create(req.body);
-
-    req.session.save(() => {
-      req.session.user_id = eventData.id;
-      req.session.logged_in = true;
-
-      res.status(200).json(eventData);
-    });
-  } catch (err) {
-    res.status(400).json(err);
+router.post('/', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
   }
+  const eventData = await Event.create(req.body);
+
+  res.status(200).json(eventData);
+
 });
 
 
-router.delete('/events', async (req, res) => {
-  try {
-    const eventData = await Event.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
-
-    if (!eventData) {
-      res.status(404).json({ message: 'No event found!' });
-      return;
-    }
-
-    res.status(200).json(eventData);
-  } catch (err) {
-    res.status(500).json(err);
+router.delete('/:id', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
   }
+
+  const eventData = await Event.destroy({
+    where: {
+      id: req.params.id,
+      userId: req.session.userId,
+    },
+  });
+
+  if (!eventData) {
+    res.status(404).json({ message: 'No event found!' });
+    return;
+  }
+
+  res.status(200).json(eventData);
+
 });
 
-module.exports = router
+module.exports = router;
