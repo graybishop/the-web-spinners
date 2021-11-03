@@ -39,11 +39,17 @@ const removeVenue = async (event) => {
 
 const addRandomEvent = async (event) => {
   event.preventDefault();
+  const pickRandom = (arr) => {
+    return arr[Math.floor(Math.random() * (arr.length))]
+  }
+
+  const names =['Birthday Party', 'Bar mitzvah', 'Baby Shower', 'Party']
+  const descriptions =['BYOB', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', `I ain't afraid of no ghosts!`, 'After party out back']
 
   const venueId = Math.floor(Math.random() * 2000 + 2000);
   let date = '2001-03-20';
-  let name = 'Party!';
-  let description = 'BYOB';
+  let name = pickRandom(names)
+  let description = pickRandom(descriptions);
 
 
   const response = await fetch('/api/events', {
@@ -53,11 +59,28 @@ const addRandomEvent = async (event) => {
   });
 
   if (response.ok) {
-    console.log(await response.json())
+    document.location.replace('/dashboard');
   } else {
     alert(response.json());
   }
 
+};
+
+const removeEvent = async (event) => {
+  event.preventDefault();
+
+  const eventId = event.target.dataset.eventId;
+  if (eventId) {
+    const response = await fetch(`/api/events/${eventId}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert(response.statusText);
+    }
+  }
 };
 
 
@@ -73,4 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#newEventButton')
     .addEventListener('click', addRandomEvent);
+  document
+    .querySelector('#bookedEventsSection')
+    .addEventListener('click', removeEvent);
 });
