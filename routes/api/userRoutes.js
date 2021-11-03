@@ -77,4 +77,22 @@ router.post('/saved-venues', async (req,res) => {
 
 })
 
+router.delete('/saved-venues', async (req,res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+
+  let user = await User.findByPk(req.session.userId)
+  let venue = await Venue.findByPk(req.body.venue)
+
+  if(user && venue){
+    let result = await user.removeVenue(venue) 
+    res.json({message: 'Venue removed', result})
+  } else {
+    res.status(404).json({message: 'Venue or user not found'})
+  }
+
+})
+
 module.exports = router;
