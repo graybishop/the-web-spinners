@@ -1,8 +1,7 @@
 const router = require('express').Router();
 
-const { Places } = require('../../models');
 const { Venue } = require('../../models');
-const withAuth = require('../../utils/auth');
+const {withAuth} = require('../../utils/helpers.js');
 
 //route used by search bar on the homepage
 router.get('/:city', async (req, res) => {
@@ -21,7 +20,7 @@ router.get('/:city', async (req, res) => {
 
 router.post('/', withAuth, async (req, res) => {
   try {
-    const newPlaces = await Places.create({
+    const newPlaces = await Venue.create({
       ...req.body,
       user_id: req.session.user_id,
     });
@@ -35,7 +34,7 @@ router.post('/', withAuth, async (req, res) => {
 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
-    const placesData = await Places.destroy({
+    const placesData = await Venue.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,

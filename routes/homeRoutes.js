@@ -1,6 +1,6 @@
 const router = require('express').Router();
 // eslint-disable-next-line no-unused-vars
-const { Venue } = require('../models');
+const { Venue, User, Review, Event } = require('../models');
 
 router.get('/', async (req, res) => {
   let firstSetData = await Venue.findAll({limit:6})
@@ -28,7 +28,8 @@ router.get('/venues/:id', async (req, res) => {
     
     res.render('venue', {
       title: 'Login',
-      venue: result.toJSON()
+      venue: result.toJSON(),
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
@@ -38,6 +39,27 @@ router.get('/venues/:id', async (req, res) => {
 router.get('/login', async (req, res) => {
   res.render('login', {
     title: 'Login',
+    loggedIn: req.session.loggedIn
+  })
+})
+
+router.get('/dashboard', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+
+  let userData = await User.findByPk(req.session.userId, {
+    attributes: {
+      exclude: ['password'],
+    },
+    include: [Venue, Event, Review]
+  })
+
+  res.render('dashboard', {
+    title: 'Dashboard',
+    loggedIn: req.session.loggedIn,
+    user: userData.toJSON()
   })
 })
 
