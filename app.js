@@ -6,7 +6,7 @@ const path = require('path');
 
 //importing express handlebars
 const expressHandlebars = require('express-handlebars');
-
+const helpers = require('./utils/helpers.js');
 const app = express()
 const port = process.env.PORT || '3001'
 // eslint-disable-next-line no-unused-vars
@@ -16,7 +16,7 @@ const routes = require('./routes/index.js')
 
 
 //setting view engine to handlebars
-const hbs = expressHandlebars.create();
+const hbs = expressHandlebars.create({helpers});
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
