@@ -1,3 +1,46 @@
+<div class="splide">
+  <div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide"> <img src="/images/castle.jpg" class="object-center" alt="castle"></li>
+			<li class="splide__slide"><img src="/images/misty.jpg" class="object-center" alt="mansion with mist"></li>
+			<li class="splide__slide"><img src="/images/On_a_hill.jpg" class="object-center" alt="mansion on hill"></li>
+		</ul>
+  </div>
+</div>
+
+
+
+
+
+{{!-- <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/images/castle.jpg" class="d-block w-100" alt="castle">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/misty.jpg" class="d-block w-100" alt="mansion with mist">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/On_a_hill.jpg" class="d-block w-100" alt="mansion on hill">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div> --}}
+
+
+
+
+
+
+
+
 <section class="container mx-auto px-4 flex flex-row flex-wrap">
     {{#each venues as |venue|}}
     <div class="flex-none px-2 md:w-3/12  sm:w-full">
@@ -34,4 +77,5 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
 <script src="/js/home.js"></script>
