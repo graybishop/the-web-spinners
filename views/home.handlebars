@@ -28,7 +28,6 @@
     </p>
   </div>
   {{#each venues as |venue|}}
-  <p>{{venue.userSaved}}</p>
   <div class="bg-white rounded-lg shadow-2xl w-full flex flex-col gap-2">
     {{!-- title and image section --}}
     <div>
@@ -37,6 +36,16 @@
           <h2 class="text-xl font-extrabold">{{venue.location}}</h2>
           <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
         </div>
+        {{#if venue.userSaved}}
+        <div class="text-2xl text-yellow-400">
+          <span class='hidden addSavedVenue'>
+            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+          <span class="removeSavedVenue">
+            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+        </div>
+        {{else}}
         <div class="text-2xl text-yellow-400">
           <span class='addSavedVenue'>
             <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
@@ -45,6 +54,7 @@
             <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
           </span>
         </div>
+        {{/if}}
       </div>
       <div class="">
         <img class="object-cover w-full h-56" src="https://picsum.photos/seed/{{venue.location}}/600/400" alt="">
