@@ -6,7 +6,11 @@ router.post('/', async (req, res) => {
     res.redirect('/login');
     return;
   }
-  const eventData = await Event.create(req.body);
+
+  const eventData = await Event.create({
+    ...req.body, 
+    userId: req.session.userId
+  });
 
   res.status(200).json(eventData);
 

@@ -37,13 +37,40 @@ const removeVenue = async (event) => {
   }
 };
 
+const addRandomEvent = async (event) => {
+  event.preventDefault();
+
+  const venueId = Math.floor(Math.random() * 2000 + 2000);
+  let date = '2001-03-20';
+  let name = 'Party!';
+  let description = 'BYOB';
+
+
+  const response = await fetch('/api/events', {
+    method: 'POST',
+    body: JSON.stringify({ venueId, date, name, description }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    console.log(await response.json())
+  } else {
+    alert(response.json());
+  }
+
+};
 
 
 document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#newVenueButton')
     .addEventListener('click', addRandomVenue);
+
   document
     .querySelector('#savedVenuesSection')
     .addEventListener('click', removeVenue);
+
+  document
+    .querySelector('#newEventButton')
+    .addEventListener('click', addRandomEvent);
 });
