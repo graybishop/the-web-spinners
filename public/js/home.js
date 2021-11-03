@@ -1,4 +1,11 @@
-new Splide( '.splide' ).mount();
+// Carousel 
+document.addEventListener( 'DOMContentLoaded', function () {
+  new Splide( '#image-slider', {
+		cover      : true,
+		heightRatio: 0.3,
+  } ).mount();
+} );
+
 
 const searchForCity = async (event) => {
   event.preventDefault();
