@@ -3,16 +3,37 @@ const router = require('express').Router();
 const { Venue, User, Review, Event } = require('../models');
 
 router.get('/', async (req, res) => {
-  let firstSetData = await Venue.findAll({ limit: 6 });
+  let firstSetData = await Venue.findAll({ 
+    limit: 6,
+  });
+
+  //checks if logged in user has any of the venues saved
+  let userData = await User.findByPk(req.session.userId)
+  let userHasVenue = []
+  if(userData){
+    for (const element of firstSetData) {
+      console.log(await element.hasUser(userData))
+      userHasVenue.push(await element.hasUser(userData))
+    }
+  }
+
+  console.log(userHasVenue)
 
   const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
-  let firstSet = firstSetData.map(element => {
+  let firstSet = firstSetData.map((element, index) => {
     let data = element.toJSON();
     if (data.description.length > maxTextSize) {
       data.description = data.description.substr(0, maxTextSize) + '...';
     }
+    if(userHasVenue.length){
+      data.userSaved = userHasVenue[index]
+    } else {
+      data.userSaved = false
+    }
     return data;
   });
+
+
 
   res.render('home', {
     title: 'Unearthly Venues',
