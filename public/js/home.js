@@ -1,3 +1,12 @@
+// Carousel 
+document.addEventListener( 'DOMContentLoaded', function () {
+  new Splide( '#image-slider', {
+		cover      : true,
+		heightRatio: 0.3,
+  } ).mount();
+} );
+
+
 const searchForCity = async (event) => {
   event.preventDefault();
 
@@ -27,22 +36,8 @@ const searchForCity = async (event) => {
 const renderVenueCard = (venue) => {
   let resultsContainer = document.querySelector('#resultsContainer')
 
-  let htmlString =`<div class="col-sm-12 col-md-4 col-lg-3 pb-4">
-        <div class="card shadow h-100">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <h5 class="card-title">${venue.location}</h5>
-              <p>Located in: ${venue.city}, ${venue.state}</p>
-              <p>${venue.description}</p>
-            </div>
-            <div class="">
-              <a href="/venues/${venue.id}" class="btn btn-primary mb-2">Browse Reviews</a>
-              <a href="/venues/${venue.id}" class="btn btn-primary mb-2">Book an Event</a>
-            </div>
-          </div>
-        </div>
-      </div>
-  `
+ 
+  
   let htmlString2 =
   `<div class="flex-none px-2 md:w-3/12  sm:w-full">
   <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">

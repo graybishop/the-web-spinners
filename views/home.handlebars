@@ -1,3 +1,26 @@
+{{!-- carousel --}}
+<div id="image-slider" class="splide">
+  <div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide">
+				<img src="/images/castle.jpg">
+        <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            Book this Castle for your Event, we'll treat you like Royalty
+        </div>
+			</li>
+			<li class="splide__slide">
+				<img src="/images/misty.jpg">
+			</li>
+			<li class="splide__slide">
+				<img src="/images/On_a_hill.jpg">
+			</li>
+		</ul>
+  </div>
+</div>
+
+
+
+
 <section class="container mx-auto px-4 flex flex-row flex-wrap">
     {{#each venues as |venue|}}
     <div class="flex-none px-2 md:w-3/12  sm:w-full">
@@ -34,4 +57,5 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
 <script src="/js/home.js"></script>
