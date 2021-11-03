@@ -52,8 +52,9 @@
     <div class="flex flex-row justify-between mb-2">
       <div class="flex flex-col">
         <div>
-        <a class="underline " href="/venues/{{venue.id}}">{{event.name}}</a>
-        <p>{{formatDate event.date}}</p>
+          <a class="underline font-medium	" href="/venues/{{venue.id}}">{{event.name}}</a>
+          <p>{{formatDate event.date}}</p>
+          <p class="text-gray-500">{{event.venue.location}}, {{event.venue.city}}, {{event.venue.stateAbbrev}}</p>
         </div>
         <p>{{event.description}}</p>
       </div>
