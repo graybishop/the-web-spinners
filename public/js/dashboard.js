@@ -1,9 +1,8 @@
 const addRandomVenue = async (event) => {
   event.preventDefault();
 
-  const venue = Math.floor(Math.random()*2000 + 2000)
-
-  console.log(venue)
+  const venue = Math.floor(Math.random() * 2000 + 2000);
+  console.log(venue);
   if (venue) {
     const response = await fetch('/api/users/saved-venues', {
       method: 'POST',
@@ -22,9 +21,7 @@ const addRandomVenue = async (event) => {
 const removeVenue = async (event) => {
   event.preventDefault();
 
-  const venue = event.target.dataset.venueId
-  
-  console.log(venue)
+  const venue = event.target.dataset.venueId;
   if (venue) {
     const response = await fetch('/api/users/saved-venues', {
       method: 'DELETE',
