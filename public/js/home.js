@@ -47,13 +47,49 @@ const renderVenueCard = (venue) => {
   resultsContainer.insertAdjacentHTML('beforeend',htmlString2)
 }
 
+const toggleStar = async (event) => {
+  let target = event.target
+  let parent = target.parentElement
+
+  if (parent.tagName !== 'SPAN'){
+    return
+  }
+
+ 
+  //for toggling star visibility
+  let spans = parent.parentElement.children
+  for (const element of spans) {
+    element.classList.toggle('hidden')
+  }
+
+  // const venue = Math.floor(Math.random() * 2000 + 2000);
+  // console.log(venue);
+  // if (venue) {
+  //   const response = await fetch('/api/users/saved-venues', {
+  //     method: 'POST',
+  //     body: JSON.stringify({ venue }),
+  //     headers: { 'Content-Type': 'application/json' },
+  //   });
+
+  //   if (response.ok) {
+  //     document.location.replace('/dashboard');
+  //   } else {
+  //     alert(response.statusText);
+  //   }
+  // }
+}
+
 
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
 
   //Home hero carousel
+  // eslint-disable-next-line no-undef
   new Splide( '#image-slider', {
 		cover      : true,
 		heightRatio: 0.3,
   } ).mount();
+
+  document.querySelector('.addSavedVenue').addEventListener('click', toggleStar)
+  document.querySelector('.removeSavedVenue').addEventListener('click', toggleStar)
 });
