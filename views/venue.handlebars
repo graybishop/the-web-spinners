@@ -50,7 +50,7 @@
                 Fill out the form below to create a new booking.
               </p>
             </div>
-          {{!-- form starts here --}}
+            {{!-- form starts here --}}
             <div class="mt-2">
               <form action="" id='bookEventForm' class="flex flex-col gap-2" data-venue-id='{{venue.id}}'>
                 <div class="flex flex-col">
@@ -59,7 +59,8 @@
                 </div>
                 <div class="flex flex-col">
                   <label for="eventDescription" class="text-left">Description of Event</label>
-                  <textarea id="eventDescription" class="border" placeholder="Describe your event here..." required></textarea>
+                  <textarea id="eventDescription" class="border" placeholder="Describe your event here..."
+                    required></textarea>
                 </div>
                 <div class="flex flex-col">
                   <label for="eventDate" class="text-left">Date of Event</label>
@@ -90,40 +91,54 @@
 </div>
 {{!-- MODAL ENDS HERE --}}
 
-<section class="container mx-auto flex flex-row flex-wrap">
-  <div class="bg-white rounded-lg shadow-2xl p-4 my-2">
-    <div>
-      <h2><strong class="text-lg">{{venue.location}}</strong></h2>
-    </div>
-    <div class="bg-white-400 py-2">
-      <p>{{venue.description}}</p>
-    </div>
-    <div>
-      <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
-        Book Event
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="container mx-auto px-4 flex flex-row flex-wrap" id="eventsBooked">
-  <div class="flex-none px-2 md:w-3/12  sm:w-full">
-    <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
-      <div class="bg-white rounded-lg shadow-2xl w-full h-full">
-        <div class="bg-gray-100 rounded-t-lg p-2 text-lg font-bold">
-          <p> List of Booked Events here {{venue.events}}</p>
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
+<div class="container mx-auto">
+  {{!--START Title and Description--}}
+  <section class="flex flex-row flex-wrap">
+    <div class="bg-white rounded-lg shadow-2xl p-4 my-2">
+      <div>
+        <h2><strong class="text-lg">{{venue.location}}</strong></h2>
+      </div>
+      <div class="bg-white-400 py-2">
+        <p>{{venue.description}}</p>
+      </div>
+      <div>
+        <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
+          Book Event
+        </button>
       </div>
     </div>
-  </div>
-  </div>
-</section>
+  </section>
+  {{!--END Title and Description--}}
+
+  {{!-- Event Section --}}
+  {{#if venue.events.length}}
+  <section class="flex flex-col gap-2">
+    <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
+      <div>
+        <h2><strong class="text-lg">Booked Events</strong></h2>
+      </div>
+      {{#each venue.events as |event|}}
+      <div class="flex flex-row justify-between mb-2">
+        <div class="flex flex-col">
+          <div>
+            <a class="underline " href="#">{{event.name}}</a>
+            <p>{{formatDate event.date}}</p>
+          </div>
+          <p>{{event.description}}</p>
+        </div>
+        <div class="flex-shrink-0">
+          <button class="border-red-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Unbook Event</button>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
+  </section>
+  {{/if}}
+{{!-- END Event Section --}}
 
 {{>review}}
+
+</div>
 
 <script src="/js/venue.js"></script>
