@@ -1,6 +1,6 @@
 const router = require('express').Router();
 // eslint-disable-next-line no-unused-vars
-const { Venue } = require('../models');
+const { Venue, User, Review, Event } = require('../models');
 
 router.get('/', async (req, res) => {
   let firstSetData = await Venue.findAll({limit:6})
@@ -48,10 +48,18 @@ router.get('/dashboard', async (req, res) => {
     res.redirect('/login');
     return;
   }
-  
+
+  let userData = await User.findByPk(req.session.userId, {
+    attributes: {
+      exclude: ['password'],
+    },
+    include: [Venue, Event, Review]
+  })
+
   res.render('dashboard', {
     title: 'Dashboard',
-    loggedIn: req.session.loggedIn
+    loggedIn: req.session.loggedIn,
+    user: userData.toJSON()
   })
 })
 
