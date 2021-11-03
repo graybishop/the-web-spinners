@@ -8,6 +8,8 @@
     @apply px-4 py-2 bg-blue-600 text-white rounded;
   }
 }
+
+
 :root{
   --bg-pink: #EE6E73;
   --bg-blue: #3C91E6;
@@ -15,6 +17,35 @@
   --bg-green: #00A676;
 
 }
+
+#user-info{
+  list-style: none;
+
+}
+/*list of booked events*/
+ul {
+  display: center;
+  list-style-type: circle;
+  margin-top: 1em;
+  margin-bottom: 1 em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+}
+
+/*star-saved event here */
+.saved{
+  color: rgb(123, 180, 233);
+  float: right;
+}
+
+/*star-reviews here */
+.checked {
+  color: orange;
+  float:center;
+}
+
+
 
 nav{
   background-color: var(--bg-pink);
