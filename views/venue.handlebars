@@ -1,32 +1,62 @@
 
-
-<div class="venue-title" id= ""
-<strong> Venue Title {{venue.location}}</strong></h2>
-<div><h4>Description</h4>
-<span>/span>
+<section class="container mx-auto px-4 flex flex-row flex-wrap" id="container-title">
+<div class="flex-none px-2 md:w-3/12  sm:w-full">
+<div class="bg-white rounded-lg shadow-2xl w-full h-full">
+<header class="title-name bg-gray-100 rounded-t-lg p-2 text-lg font-normal">
+<h2><strong> Venue Title {{venue.location}}</strong></h2> 
+<span ></span>
+<div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
+<h2>{{venue.description}}</h2>
 </div>
-</a>
 
-<section class="container mx-auto px-4 flex flex-row flex-wrap">
-  
-    <div class="flex-none px-2 md:w-3/12  sm:w-full">
-        <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
-            <div class="bg-white rounded-lg shadow-2xl w-full h-full">
-                <header class="bg-gray-100 rounded-t-lg p-2 text-lg font-bold">
-                    <h2></h2><ul>
-    <li>Username</li>
-      <li>Text</li>
-        <li>Rating</li>
-          <li>Features</li>
+<button type="event" id= "book-event" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
+ Book Event
+ </button>
+</div>
+</div>
+</section>
 
-    
-
+<section class="container mx-auto px-4 flex flex-row flex-wrap" id="events-booked">
+<div class="flex-none px-2 md:w-3/12  sm:w-full">
+<div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
+<div class="bg-white rounded-lg shadow-2xl w-full h-full">
+<div class="bg-gray-100 rounded-t-lg p-2 text-lg font-bold">
+ <p> List of Booked Events here {{venue.events}}</p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
 </ul>
-</header>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="container mx-auto px-4 flex flex-row flex-wrap flex-center" id="reviews">
+<div class="flex-none px-2 md:w-3/12  sm:w-full">
+<div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
+<div class="bg-white rounded-lg shadow-2xl w-full h-full">
+<div class="bg-gray-100 rounded-t-lg p-2 text-lg font-bold">
+<h2>Reviews and Rating{{venue.review}} </h2>
+<div id="rating"></div>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<ul id= "user-info">
+<li>Username</li>
+<li>Text</li>
+<li>Features/#tags</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 
 
-
-{{this.city}}
-
-{{this.description}}
+      
