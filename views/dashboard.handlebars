@@ -5,17 +5,10 @@
       <h1 class="text-3xl">Test Buttons</h1>
     </div>
     <div>
-      <button class="border-2" id='newVenueButton'>addNewVenue</button>
+      <button class="border-2 rounded p-2" id='newVenueButton'>Add Random Saved Venue</button>
     </div>
   </div>
   {{!-- User Info Section --}}
-  <div class="flex flex-col p-4">
-    <div class="border-b-2">
-      <h1 class="text-3xl">User Info</h1>
-    </div>
-    <p>Username: {{user.username}}</p>
-    <p>Email: {{user.email}}</p>
-  </div>
   <div class="flex flex-col p-4">
     <div class="border-b-2">
       <h1 class="text-3xl">User Info</h1>
@@ -31,8 +24,14 @@
     </div>
 
     {{#each user.venues as |venue|}}
-    <div>
+    <div class="flex flex-row justify-between mb-2" data-venue-id='{{venue.id}}'>
+      <div class="flex flex-col">
+        <a class="underline " href="/venues/{{venue.id}}">{{venue.location}}</a>
+        <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
+      </div>
+      <div>
 
+      </div>
     </div>
     {{/each}}
   </div>
