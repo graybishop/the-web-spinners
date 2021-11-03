@@ -19,8 +19,6 @@ const addRandomVenue = async (event) => {
 };
 
 const removeVenue = async (event) => {
-  event.preventDefault();
-
   const venue = event.target.dataset.venueId;
   if (venue) {
     const response = await fetch('/api/users/saved-venues', {
@@ -67,8 +65,6 @@ const addRandomEvent = async (event) => {
 };
 
 const removeEvent = async (event) => {
-  event.preventDefault();
-
   const eventId = event.target.dataset.eventId;
   if (eventId) {
     const response = await fetch(`/api/events/${eventId}`, {
