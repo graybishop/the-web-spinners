@@ -3,6 +3,14 @@ const { User, Venue } = require('../../models');
 
 router.post('/', async (req, res) => {
    try {
+     const testUser= await User.findOne({where:{
+       username:req.body.username
+     }})
+     if(testUser){
+      res.status(400).json({message:"User already exists!"});
+      return;
+     }
+
     const userData = await User.create(req.body);
 
     req.session.save(() => {
