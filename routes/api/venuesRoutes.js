@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { Venue } = require('../../models');
-const withAuth = require('../../utils/auth');
+const {withAuth} = require('../../utils/helpers.js');
 
 //route used by search bar on the homepage
 router.get('/:city', async (req, res) => {
