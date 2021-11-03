@@ -1,12 +1,3 @@
-// Carousel 
-document.addEventListener( 'DOMContentLoaded', function () {
-  new Splide( '#image-slider', {
-		cover      : true,
-		heightRatio: 0.3,
-  } ).mount();
-} );
-
-
 const searchForCity = async (event) => {
   event.preventDefault();
 
@@ -59,4 +50,10 @@ const renderVenueCard = (venue) => {
 
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
+
+  //Home hero carousel
+  new Splide( '#image-slider', {
+		cover      : true,
+		heightRatio: 0.3,
+  } ).mount();
 });
