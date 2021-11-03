@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { where } = require('sequelize/types');
 const { Event } = require('../../models');
 
 router.post('/', async (req, res) => {
