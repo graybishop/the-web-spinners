@@ -93,6 +93,7 @@ const getUserCityState = async () => {
   return { city, state };
 };
 // END User Location Section
+
 let searchCarousel;
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -213,7 +214,6 @@ window.addEventListener('DOMContentLoaded', () => {
   searchInput.addEventListener("selection", (event) => {
     // "event.detail" carries the autoComplete.js "feedback" object
     document.querySelector('#homeSearchInput').value = event.detail.selection.value;
-    // homeSearchForm.requestSubmit();
   });
 });
 
