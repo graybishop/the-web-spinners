@@ -109,7 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
     type: 'loop',
     pagination: false,
     arrows: false,
-    // autoplay: true,
+    autoplay: true,
     interval: 5000,
     speed: 0
   }).mount();
@@ -163,8 +163,19 @@ window.addEventListener('DOMContentLoaded', () => {
         class: "results_list bg-white rounded text-black text-2xl py-4 absolute top-full px-4 list-none mt-1 w-7/12 md:w-6/12 lg:w-5/12 shadow-sm",
         destination: "#homeSearchInput",
         position: "afterend",
-        maxResults: 5,
-        noResults: true,
+        maxResults: 10,
+        element: (list, data) => {
+          if (!data.results.length) {
+            // Create "No Results" message list element
+            const message = document.createElement("div");
+            message.classList.add('text-gray-600', 'text-xl')
+            // Add message text content
+            message.innerHTML = `<span>No results found for "${data.query}"</span>`;
+            // Add message list element to the list
+            list.appendChild(message);
+          }
+        },
+        noResults: true
       },
       resultItem: {
         tag: "li",
@@ -178,10 +189,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let homeSearchForm = document.querySelector('#homeSearchForm');
   let searchInput = document.querySelector("#homeSearchInput");
-  homeSearchForm.addEventListener('submit', (event) =>{
-    searchForCity(event)
-    autoCompleteJS.close()
-  } );
+  homeSearchForm.addEventListener('submit', (event) => {
+    searchForCity(event);
+    autoCompleteJS.close();
+  });
 
   //Submits form when user clicks on city in suggestions list, or hits enter on suggestion list
   searchInput.addEventListener("selection", (event) => {
