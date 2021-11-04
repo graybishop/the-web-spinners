@@ -11,6 +11,7 @@ const searchForVenueByLocation = async (event) => {
     console.log(responseList);
     responseList.forEach(element => renderSearchCard(element));
     // renderSearchCard(responseList);
+    document.querySelector('#searchResultContainer').classList.remove('hidden')
     event.target.reset();
   } else {
     alert('Failed to find city.');
@@ -106,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
     pagination: false,
     arrows: false,
     autoplay: true,
-    interval: 5000,
+    interval: 7500,
     speed: 0
   }).mount();
 
@@ -121,28 +122,8 @@ window.addEventListener('DOMContentLoaded', () => {
     element.addEventListener('click', linkToDashboardVenue);
   }
 
-  //card carousel
-  // eslint-disable-next-line no-undef
-  let cardCarousel = new Splide('#cardCarousel', {
-    type: 'loop',
-    perPage: 1,
-    interval: 2000,
-    autoplay: true,
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    speed: 700,
-    pagination: true,
-    autoWidth: true,
-    gap: '1rem',
-    classes: {
-      pagination: 'splide__pagination visible sm:invisible',
-      arrows: 'splide__arrows your-class-arrows visible sm:invisible'
-    }
-  }).mount();
 
-  cardCarousel.Components.Elements.track.style.overflow = 'visible';
-
-  //card carousel
+  // Search Card carousel
   // eslint-disable-next-line no-undef
   searchCarousel = new Splide('#searchCarousel', {
     type: 'loop',
@@ -161,7 +142,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }).mount();
 
-  // searchCarousel.Components.Elements.track.style.overflow = 'visible';
+  searchCarousel.Components.Elements.track.style.overflow = 'visible';
 
 
   // eslint-disable-next-line no-undef, no-unused-vars
@@ -221,7 +202,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const renderSearchCard = (venue) => {
   const slide = document.createElement('li');
-  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 flex flex-col animate__animated animate__backInUp';
+  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 flex flex-col animate__animated animate__bounceInDown';
 
   const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
   if (venue.description.length > maxTextSize) {
@@ -257,8 +238,6 @@ const renderSearchCard = (venue) => {
       </button>
     </div>
   </div>`;
-
-
 
   slide.innerHTML = htmlString;
   searchCarousel.add(slide);
