@@ -23,16 +23,6 @@
 
 }
 
-/*list of booked events*/
-ul {
-  display: center;
-  list-style-type: circle;
-  margin-top: 1em;
-  margin-bottom: 1 em;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 40px;
-}
 
 /*star-saved event here */
 .saved{

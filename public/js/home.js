@@ -150,15 +150,29 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       placeHolder: "Search for Food...",
       data: {
-        
+
         // eslint-disable-next-line no-undef
         src: cityName
       },
+      wrapper: false,
+      resultsList: {
+        tag: "ul",
+        id: "autoComplete_list",
+        class: "results_list bg-white rounded text-black absolute text-2xl py-4 px-4 list-none mt-1 w-6/12 sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12",
+        destination: "#autoComplete",
+        position: "afterend",
+        maxResults: 5,
+        noResults: true,
+        element: (list, data) => {
+          list.setAttribute("data-parent", "food-list");
+        },
+      },
       resultItem: {
-        highlight: {
-          render: true
-        }
-      }
+        tag: "li",
+        class: "autoComplete_result mb-2",
+        highlight: "autoComplete_highlight",
+        selected: "autoComplete_selected"
+      },
     }
   );
 
