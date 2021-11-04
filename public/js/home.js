@@ -74,6 +74,7 @@ const addSavedVenueFromStar = async (event) => {
       for (const element of spans) {
         element.classList.toggle('hidden');
       }
+      parent.parentElement.classList.add('animate__animated', 'animate__tada')
     } else {
       alert(response.statusText);
     }

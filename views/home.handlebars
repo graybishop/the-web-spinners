@@ -1,5 +1,5 @@
 <section class="relative">
-{{!-- carousel --}}
+  {{!-- carousel --}}
   <div id="image-slider" class="splide">
     <div class="splide__track">
       <ul class="splide__list">
@@ -20,18 +20,22 @@
   <div class="absolute inset-0 backdrop-filter backdrop-blur-sm backdrop-brightness-50">
     <div class="container mx-auto h-full px-4">
       <div class="flex flex-col justify-center h-full text-white">
-        <h1 class="text-5xl font-bold">Unearthly Venues</h1>
-        <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues
-          or search for your city below for local venues!
-        </p>
-        <div class="">
-        <form class="flex flex-row gap-2" id='homeSearchForm'>
-          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1" type="search"
-            placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
-          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
-        </form>
-      </div>
-        
+        <div class="animate__animated animate__fadeInDown">
+          <h1 class="text-5xl font-bold">Unearthly Venues</h1>
+          <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured
+            venues
+            or search for your city below for local venues!
+          </p>
+
+        </div>
+        <div class="animate__animated animate__fadeInUp">
+          <form class="flex flex-row gap-2" id='homeSearchForm'>
+            <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1 " type="search"
+              placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+            <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
@@ -47,7 +51,7 @@
   </div>
   {{#each venues as |venue|}}
   <div
-    class="bg-white rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
+    class="animate__animated animate__slideInLeft bg-white rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
     {{!-- title and image section --}}
     <div>
       <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2">
@@ -56,7 +60,7 @@
           <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
         </div>
         {{#if venue.userSaved}}
-        <div class="text-2xl text-yellow-400">
+        <div class="text-2xl text-yellow-500">
           <span class='hidden addSavedVenue'>
             <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
           </span>
@@ -65,7 +69,7 @@
           </span>
         </div>
         {{else}}
-        <div class="text-2xl text-yellow-400">
+        <div class="text-2xl text-yellow-500">
           <span class='addSavedVenue'>
             <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
           </span>
@@ -121,16 +125,16 @@
                   <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
                 </div>
                 {{#if venue.userSaved}}
-                <div class="text-2xl text-yellow-400">
+                <div class="text-2xl text-yellow-500">
                   <span class='hidden addSavedVenue'>
                     <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
                   </span>
-                  <span class="removeSavedVenue">
+                  <span class="removeSavedVenue ">
                     <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
                   </span>
                 </div>
                 {{else}}
-                <div class="text-2xl text-yellow-400">
+                <div class="text-2xl text-yellow-500">
                   <span class='addSavedVenue'>
                     <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
                   </span>
