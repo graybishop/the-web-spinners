@@ -3,31 +3,50 @@ const router = require('express').Router();
 const { Venue, User, Review, Event } = require('../models');
 
 router.get('/', async (req, res) => {
-  let firstSetData = await Venue.findAll({limit:6})
-  
-  const maxTextSize = 150 //higher numbers mean more letters on the homepage cards descriptions
-  let firstSet = firstSetData.map(element => {
-    let data = element.toJSON()
-    if(data.description.length > maxTextSize){
-      data.description = data.description.substr(0, maxTextSize) + '...'
+  let firstSetData = await Venue.findAll({ 
+    limit: 6,
+  });
+
+  //checks if logged in user has any of the venues saved
+  let userData = await User.findByPk(req.session.userId)
+  let userHasVenue = []
+  if(userData){
+    for (const element of firstSetData) {
+      userHasVenue.push(await element.hasUser(userData))
     }
-    return data
-  })
+  }
+  const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
+  let firstSet = firstSetData.map((element, index) => {
+    let data = element.toJSON();
+    if (data.description.length > maxTextSize) {
+      data.description = data.description.substr(0, maxTextSize) + '...';
+    }
+    if(userHasVenue.length){
+      data.userSaved = userHasVenue[index]
+    } else {
+      data.userSaved = false
+    }
+    return data;
+  });
+
+
 
   res.render('home', {
     title: 'Unearthly Venues',
     venues: firstSet,
     loggedIn: req.session.loggedIn
-  })
-})
+  });
+});
 
 router.get('/venues/:id', async (req, res) => {
   try {
 
-    let result = await Venue.findByPk(req.params.id)
-    
+    let result = await Venue.findByPk(req.params.id, {
+      include: [Event, Review]
+    });
+
     res.render('venue', {
-      title: 'Login',
+      title: 'Venue',
       venue: result.toJSON(),
       loggedIn: req.session.loggedIn
     });
@@ -40,8 +59,8 @@ router.get('/login', async (req, res) => {
   res.render('login', {
     title: 'Login',
     loggedIn: req.session.loggedIn
-  })
-})
+  });
+});
 
 router.get('/dashboard', async (req, res) => {
   if (!req.session.loggedIn) {
@@ -53,19 +72,25 @@ router.get('/dashboard', async (req, res) => {
     attributes: {
       exclude: ['password'],
     },
-    include: [Venue, Event, Review]
-  })
+    include: [
+      Venue, {
+        model: Event,
+        include: [Venue]
+      },
+      Review
+    ]
+  });
 
   res.render('dashboard', {
     title: 'Dashboard',
     loggedIn: req.session.loggedIn,
     user: userData.toJSON()
-  })
-})
+  });
+});
 
 router.get('/form', (req, res) => {
   res.render("form");
 });
 
 
-module.exports = router
+module.exports = router;

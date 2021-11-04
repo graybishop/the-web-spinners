@@ -1,6 +1,165 @@
-<h2> venue details will go here{{this.location}}</h2>
+{{!-- MODAL STARTS HERE --}}
+<div class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
+  id='eventModal'>
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!--
+      Background overlay, show/hide based on modal state.
 
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
-{{this.city}}
+    <!-- This element is to trick the browser into centering the modal contents. -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-{{this.description}}
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div
+      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div
+            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+            <!-- Heroicon name: outline/exclamation -->
+            <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Book New Event
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                Fill out the form below to create a new booking.
+              </p>
+            </div>
+            {{!-- form starts here --}}
+            <div class="mt-2">
+              <form action="" id='bookEventForm' class="flex flex-col gap-2" data-venue-id='{{venue.id}}'>
+                <div class="flex flex-col">
+                  <label for="eventName" class="text-left">Name of Event</label>
+                  <input type="text" id="eventName" class="border" placeholder="Partay!" required>
+                </div>
+                <div class="flex flex-col">
+                  <label for="eventDescription" class="text-left">Description of Event</label>
+                  <textarea id="eventDescription" class="border" placeholder="Describe your event here..."
+                    required></textarea>
+                </div>
+                <div class="flex flex-col">
+                  <label for="eventDate" class="text-left">Date of Event</label>
+                  <input type="datetime-local" id="eventDate" class="border" required>
+                </div>
+                <div class="flex flex-col">
+                  <label for="numberOfPeople" class="text-left">How many people:</label>
+                   <select id="numberOfPeople" class="border">
+                    <option value="" disabled selected>Please Choose...</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        
+                      </select>
+                </div>
+              </form>
+            </div>
+          </div>
+          {{!-- form ends here --}}
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button
+          class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+          form="bookEventForm" type="submit">
+          Book Event!
+        </button>
+        <button type="button"
+          class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+          id='cancelButton'>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- MODAL ENDS HERE --}}
+
+<div class="container mx-auto">
+  {{!--START Title and Description--}}
+  <section class="flex flex-row flex-wrap">
+    <div class="bg-white rounded-lg shadow-2xl p-4 my-2">
+      <div>
+        <h2><strong class="text-lg">{{venue.location}}</strong></h2>
+      </div>
+      <div class="bg-white-400 py-2">
+        <p>{{venue.description}}</p>
+      </div>
+      <div>
+        <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
+          Book Event
+        </button>
+      </div>
+    </div>
+  </section>
+  {{!--END Title and Description--}}
+
+  {{!-- Event Section --}}
+  {{#if venue.events.length}}
+  <section class="flex flex-col gap-2">
+    <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
+      <div>
+        <h2><strong class="text-lg">Booked Events</strong></h2>
+      </div>
+      {{#each venue.events as |event|}}
+      <div class="flex flex-row justify-between mb-2">
+        <div class="flex flex-col">
+          <div>
+            <a class="underline " href="#">{{event.name}}</a>
+            <p>{{formatDate event.date}}</p>
+          </div>
+          <p>{{event.description}}</p>
+        </div>
+        <div class="flex-shrink-0">
+          <p>${{event.cost}}</p>
+          <button class="border-blue-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Save Event</button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </section>
+  {{/if}}
+  {{!-- END Event Section --}}
+<form id="newReview" data-venue-id='{{venue.id}}'>
+  <input type="text" id="reviewText">
+  <input type="submit">
+</form>
+  {{>review}}
+
+</div>
+
+<script src="/js/venue.js"></script>

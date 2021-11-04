@@ -1,12 +1,3 @@
-// Carousel 
-document.addEventListener( 'DOMContentLoaded', function () {
-  new Splide( '#image-slider', {
-		cover      : true,
-		heightRatio: 0.3,
-  } ).mount();
-} );
-
-
 const searchForCity = async (event) => {
   event.preventDefault();
 
@@ -16,30 +7,30 @@ const searchForCity = async (event) => {
     return;
   }
 
-  let lowercaseCity = city.toLowerCase() 
+  let lowercaseCity = city.toLowerCase();
 
-  let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1)
+  let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1);
 
   const response = await fetch(`/api/venues/${capitalizedCity}`);
 
   if (response.ok) {
-    let responseVenue = await response.json()
-    console.log(responseVenue)
-    renderVenueCard(responseVenue)
+    let responseVenue = await response.json();
+    console.log(responseVenue);
+    renderVenueCard(responseVenue);
   } else {
     alert('Failed to find city.');
-    return
+    return;
   }
 
 };
 
 const renderVenueCard = (venue) => {
-  let resultsContainer = document.querySelector('#resultsContainer')
+  let resultsContainer = document.querySelector('#resultsContainer');
 
- 
-  
+
+
   let htmlString2 =
-  `<div class="flex-none px-2 md:w-3/12  sm:w-full">
+    `<div class="flex-none px-2 md:w-3/12  sm:w-full">
   <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
       <div class="bg-white rounded-lg shadow-2xl w-full h-full">
           <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
@@ -52,11 +43,84 @@ const renderVenueCard = (venue) => {
       </div>
   </div>
 </div>
-  `
-  resultsContainer.insertAdjacentHTML('beforeend',htmlString2)
-}
+  `;
+  resultsContainer.insertAdjacentHTML('beforeend', htmlString2);
+};
+
+const addSavedVenueFromStar = async (event) => {
+  let target = event.target;
+  let parent = target.parentElement;
+
+  if (parent.tagName !== 'SPAN') {
+    return;
+  }
+
+  const venue = target.dataset.venueId;
+  if (venue) {
+    const response = await fetch('/api/users/saved-venues', {
+      method: 'POST',
+      body: JSON.stringify({ venue }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    //redirects user if they are not logged in
+    if(response.redirected){
+      document.location = response.url
+      return
+    }
+
+    if (response.ok) {
+      let spans = parent.parentElement.children;
+      for (const element of spans) {
+        element.classList.toggle('hidden');
+      }
+      parent.parentElement.classList.add('animate__animated', 'animate__tada')
+    } else {
+      alert(response.statusText);
+    }
+  }
+
+};
 
 
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
+
+  //Home hero carousel
+  // eslint-disable-next-line no-undef
+  new Splide('#image-slider', {
+    type: 'loop',
+    pagination: false,
+    arrows: false,
+    autoplay:true,
+    interval: 5000,
+    speed: 0
+  }).mount();
+
+  let allSaveStars = document.querySelectorAll('.addSavedVenue');
+  for (const element of allSaveStars) {
+    element.addEventListener('click', addSavedVenueFromStar);
+  }
+
+  //card carousel
+  // eslint-disable-next-line no-undef
+  let cardCarousel = new Splide('#cardCarousel', {
+    type: 'loop',
+    perPage: 1,
+    interval: 2000,
+    autoplay:true,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    speed: 700,
+    pagination: true,
+    autoWidth: true,
+    gap: '1rem',
+    classes : {
+      pagination: 'splide__pagination visible sm:invisible',
+      arrows: 'splide__arrows your-class-arrows visible sm:invisible'
+    }
+  }).mount();
+
+  cardCarousel.Components.Elements.track.style.overflow = 'visible'
+  
 });

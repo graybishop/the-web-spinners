@@ -42,6 +42,7 @@ const signupFormHandler = async (event) => {
       alert(response.statusText);
     }
   }
+
 };
 
 document.addEventListener('DOMContentLoaded', () => {

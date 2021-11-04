@@ -1,43 +1,185 @@
-{{!-- carousel --}}
-<div id="image-slider" class="splide">
-  <div class="splide__track">
-		<ul class="splide__list">
-			<li class="splide__slide">
-				<img src="/images/castle.jpg">
-        <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-            Book this Castle for your Event, we'll treat you like Royalty
+<section class="relative">
+  {{!-- carousel --}}
+  <div id="image-slider" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide">
+          <div class="hero-image-slides">
+            <img class="object-cover h-full w-full" src="/images/castle.jpg">
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="hero-image-slides">
+            <img class="object-cover h-full w-full" src="/images/misty.jpg">
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="hero-image-slides">
+            <img class="object-cover h-full w-full" src="/images/On_a_hill.jpg">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  {{!-- end carousel --}}
+  {{!-- darkness filter and title setup section --}}
+  <div class="absolute inset-0 backdrop-filter backdrop-blur-sm backdrop-brightness-50">
+    <div class="container mx-auto h-full px-4">
+      <div class="flex flex-col justify-center h-full text-white">
+        <div class="animate__animated animate__fadeInDown">
+          <h1 class="text-5xl font-bold">Unearthly Venues</h1>
+          <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured
+            venues
+            or search for your city below for local venues!
+          </p>
+
         </div>
-			</li>
-			<li class="splide__slide">
-				<img src="/images/misty.jpg">
-			</li>
-			<li class="splide__slide">
-				<img src="/images/On_a_hill.jpg">
-			</li>
-		</ul>
+        <div class="animate__animated animate__fadeInUp">
+          <form class="flex flex-row gap-2" id='homeSearchForm'>
+            <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1 " type="search"
+              placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+            <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{!-- end title section --}}
+</section>
+
+
+
+{{!-- START VENUE CARDS --}}
+<section class="container mx-auto py-4 flex flex-col flex-wrap gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+  <div class="col-span-full py-8 px-4">
+    <h2 class="text-4xl font-bold">Featured Venues!</h2>
+  </div>
+  {{#each venues as |venue|}}
+  <div
+    class="animate__animated animate__slideInLeft bg-white rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
+    {{!-- title and image section --}}
+    <div>
+      <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2">
+        <div>
+          <h2 class="text-xl font-extrabold">{{venue.location}}</h2>
+          <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
+        </div>
+        {{#if venue.userSaved}}
+        <div class="text-2xl text-yellow-500">
+          <span class='hidden addSavedVenue'>
+            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+          <span class="removeSavedVenue">
+            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+        </div>
+        {{else}}
+        <div class="text-2xl text-yellow-500">
+          <span class='addSavedVenue'>
+            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+          <span class="hidden removeSavedVenue">
+            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          </span>
+        </div>
+        {{/if}}
+      </div>
+      <div class="">
+        <img class="object-cover w-full h-56" src="https://picsum.photos/seed/{{venue.location}}/600/400" alt="">
+      </div>
+    </div>
+    {{!-- description section --}}
+    <div class="px-4 pb-2">
+      <p>{{venue.description}}</p>
+    </div>
+    {{!-- button section --}}
+    <div class="px-4 mb-4 flex flex-row gap-2 mt-auto border-t pt-2">
+      <button onclick="location.href = '/venues/{{venue.id}}'" id="bookEventButton"
+        class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Visit Venue Page
+      </button>
+      <button onclick="location.href = '/venues/{{venue.id}}'" id="bookEventButton"
+        class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Book an Event
+      </button>
+    </div>
+  </div>
+  {{/each}}
+</section>
+{{!-- END VENUE CARDS --}}
+
+{{!-- START CARD CAROUSEL --}}
+<div class="p-4 overflow-hidden relative">
+  <div class="container mx-auto py-8 px-4">
+    <h2 class="text-4xl font-bold">Featured Venues!</h2>
+    <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues.
+    </p>
+  </div>
+  <div class="" id='cardCarousel'>
+    <div class="splide__track">
+      <ul class="splide__list">
+        {{#each venues as |venue|}}
+        <li class="splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 flex flex-col">
+          <div
+            class="bg-white h-full rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
+            {{!-- title and image section --}}
+            <div>
+              <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2">
+                <div>
+                  <h2 class="text-xl font-extrabold">{{venue.location}}</h2>
+                  <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
+                </div>
+                {{#if venue.userSaved}}
+                <div class="text-2xl text-yellow-500">
+                  <span class='hidden addSavedVenue'>
+                    <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+                  </span>
+                  <span class="removeSavedVenue ">
+                    <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+                  </span>
+                </div>
+                {{else}}
+                <div class="text-2xl text-yellow-500">
+                  <span class='addSavedVenue'>
+                    <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+                  </span>
+                  <span class="hidden removeSavedVenue">
+                    <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+                  </span>
+                </div>
+                {{/if}}
+              </div>
+              <div class="">
+                <img class="object-cover w-full h-56" src="https://picsum.photos/seed/{{venue.location}}/600/400"
+                  alt="">
+              </div>
+            </div>
+            {{!-- description section --}}
+            <div class="px-4 pb-2">
+              <p>{{venue.description}}</p>
+            </div>
+            {{!-- button section --}}
+            <div class="px-4 mb-4 flex flex-row gap-2 mt-auto border-t pt-2">
+              <button onclick="location.href = '/venues/{{venue.id}}'" id="bookEventButton"
+                class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+                Visit Venue Page
+              </button>
+              <button onclick="location.href = '/venues/{{venue.id}}'" id="bookEventButton"
+                class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+                Book an Event
+              </button>
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
   </div>
 </div>
+{{!-- END CARD CAROUSEL --}}
 
 
-
-
-<section class="container mx-auto px-4 flex flex-row flex-wrap">
-    {{#each venues as |venue|}}
-    <div class="flex-none px-2 md:w-3/12  sm:w-full">
-        <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
-            <div class="bg-white rounded-lg shadow-2xl w-full h-full">
-                <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
-                    <h2>{{venue.location}}</h2>
-                </header>
-                <div class="p-2">
-                    <p>{{venue.description}}</p>
-                    <a class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5" href="/venues/{{venue.id}}"> My Venue</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/each}}
-</section>
 <section class="bg-green text-white">
   <div class="py-2">
     <h3 class="text-center text-3xl">Find venues in your city!</h3>
@@ -46,7 +188,7 @@
   <div class="container mx-auto">
     <div class="flex flex-row justify-center">
       <div class="">
-        <form class="d-flex mb-2" id='homeSearchForm'>
+        <form class="mb-2" id='homeSearchForm'>
           <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" placeholder="Autocomplete TDB" aria-label="Search" id="autoComplete" type="text">
          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
         </form>
