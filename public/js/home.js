@@ -9,7 +9,7 @@ const searchForVenueByLocation = async (event) => {
   if (response.ok) {
     let responseList = await response.json();
     console.log(responseList);
-    responseList.forEach(element => renderSearchCard(element))
+    responseList.forEach(element => renderSearchCard(element));
     // renderSearchCard(responseList);
     event.target.reset();
   } else {
@@ -147,7 +147,7 @@ window.addEventListener('DOMContentLoaded', () => {
   searchCarousel = new Splide('#searchCarousel', {
     type: 'loop',
     perPage: 1,
-    interval: 2000,
+    interval: 3500,
     autoplay: true,
     pauseOnHover: true,
     pauseOnFocus: true,
@@ -221,14 +221,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const renderSearchCard = (venue) => {
   const slide = document.createElement('li');
-  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 flex flex-col'
+  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 flex flex-col animate__animated animate__backInUp';
 
   const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
   if (venue.description.length > maxTextSize) {
     venue.description = venue.description.substr(0, maxTextSize) + '...';
   }
-  
-  let htmlString =`
+
+  let htmlString = `
   <div
     class="bg-white h-full rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
     <div>
@@ -256,10 +256,10 @@ const renderSearchCard = (venue) => {
         Book an Event
       </button>
     </div>
-  </div>`
+  </div>`;
 
 
 
-  slide.innerHTML = htmlString
+  slide.innerHTML = htmlString;
   searchCarousel.add(slide);
 };
