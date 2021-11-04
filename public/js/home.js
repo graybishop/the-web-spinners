@@ -84,8 +84,14 @@ window.addEventListener('DOMContentLoaded', () => {
   //Home hero carousel
   // eslint-disable-next-line no-undef
   new Splide('#image-slider', {
+    type: 'loop',
     cover: true,
-    heightRatio: 0.3,
+    heightRatio: 0.5,
+    pagination: false,
+    arrows: false,
+    autoplay:true,
+    interval: 5000,
+    speed: 0
   }).mount();
 
   let allSaveStars = document.querySelectorAll('.addSavedVenue');
@@ -94,13 +100,15 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //card carousel
+  // eslint-disable-next-line no-undef
   let cardCarousel = new Splide('#cardCarousel', {
     type: 'loop',
     perPage: 1,
     interval: 2000,
     autoplay:true,
     pauseOnHover: true,
-    speed: 300,
+    pauseOnFocus: true,
+    speed: 700,
     pagination: true,
     autoWidth: true,
     gap: '1rem',
@@ -110,6 +118,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }).mount();
 
-  console.log(cardCarousel.Components.Elements.track.style.overflow = 'visible')
+  cardCarousel.Components.Elements.track.style.overflow = 'visible'
   
 });

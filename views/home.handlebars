@@ -1,22 +1,42 @@
+<section class="relative">
 {{!-- carousel --}}
-<div id="image-slider" class="splide">
-  <div class="splide__track">
-    <ul class="splide__list">
-      <li class="splide__slide">
-        <img src="/images/castle.jpg">
-        <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-          Book this Castle for your Event, we'll treat you like Royalty
-        </div>
-      </li>
-      <li class="splide__slide">
-        <img src="/images/misty.jpg">
-      </li>
-      <li class="splide__slide">
-        <img src="/images/On_a_hill.jpg">
-      </li>
-    </ul>
+  <div id="image-slider" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide">
+          <img src="/images/castle.jpg">
+        </li>
+        <li class="splide__slide">
+          <img src="/images/misty.jpg">
+        </li>
+        <li class="splide__slide">
+          <img src="/images/On_a_hill.jpg">
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+  {{!-- end carousel --}}
+  {{!-- darkness filter and title setup section --}}
+  <div class="absolute inset-0 backdrop-filter backdrop-blur-sm backdrop-brightness-50">
+    <div class="container mx-auto h-full px-4">
+      <div class="flex flex-col justify-center h-full text-white">
+        <h1 class="text-5xl font-bold">Unearthly Venues</h1>
+        <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues
+          or search for your city below for local venues!
+        </p>
+        <div class="">
+        <form class="flex flex-row gap-2" id='homeSearchForm'>
+          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1" type="search"
+            placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
+        </form>
+      </div>
+        
+      </div>
+    </div>
+  </div>
+  {{!-- end title section --}}
+</section>
 
 
 
@@ -24,8 +44,6 @@
 <section class="container mx-auto py-4 flex flex-col flex-wrap gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
   <div class="col-span-full py-8 px-4">
     <h2 class="text-4xl font-bold">Featured Venues!</h2>
-    <p class="py-2">Supernaturally low prices, unbelievable life experiences! Choose from one of our featured venues.
-    </p>
   </div>
   {{#each venues as |venue|}}
   <div
@@ -91,7 +109,7 @@
   <div class="" id='cardCarousel'>
     <div class="splide__track">
       <ul class="splide__list">
-          {{#each venues as |venue|}}
+        {{#each venues as |venue|}}
         <li class="splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 flex flex-col">
           <div
             class="bg-white h-full rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
@@ -144,7 +162,7 @@
             </div>
           </div>
         </li>
-          {{/each}}
+        {{/each}}
       </ul>
     </div>
   </div>
@@ -160,7 +178,7 @@
   <div class="container mx-auto">
     <div class="flex flex-row justify-center">
       <div class="">
-        <form class="d-flex mb-2" id='homeSearchForm'>
+        <form class="mb-2" id='homeSearchForm'>
           <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search"
             placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
           <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
