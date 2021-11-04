@@ -56,7 +56,6 @@ const addSavedVenueFromStar = async (event) => {
   }
 
   const venue = target.dataset.venueId;
-  console.log(venue);
   if (venue) {
     const response = await fetch('/api/users/saved-venues', {
       method: 'POST',
@@ -64,8 +63,13 @@ const addSavedVenueFromStar = async (event) => {
       headers: { 'Content-Type': 'application/json' },
     });
 
+    //redirects user if they are not logged in
+    if(response.redirected){
+      document.location = response.url
+      return
+    }
+
     if (response.ok) {
-      //for toggling star visibility
       let spans = parent.parentElement.children;
       for (const element of spans) {
         element.classList.toggle('hidden');
