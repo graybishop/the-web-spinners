@@ -145,11 +145,13 @@ window.addEventListener('DOMContentLoaded', () => {
   cardCarousel.Components.Elements.track.style.overflow = 'visible';
 
 
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-undef, no-unused-vars
   const autoCompleteJS = new autoComplete(
     {
       placeHolder: "Search for Food...",
       data: {
+        
+        // eslint-disable-next-line no-undef
         src: cityName
       },
       resultItem: {
