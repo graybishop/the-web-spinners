@@ -99,7 +99,8 @@ const linkToDashboardVenue = (event) => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
+  let homeSearchForm = document.querySelector('#homeSearchForm')
+  homeSearchForm.addEventListener('submit', searchForCity);
 
   //Home hero carousel
   // eslint-disable-next-line no-undef
@@ -172,6 +173,14 @@ window.addEventListener('DOMContentLoaded', () => {
       },
     }
   );
+
+  document.querySelector("#homeSearchInput").addEventListener("selection",  (event) => {
+    // "event.detail" carries the autoComplete.js "feedback" object
+    console.log(event.detail);
+    console.log('just the event', event)
+    homeSearchForm.requestSubmit()
+});
+
 
 
 

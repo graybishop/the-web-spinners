@@ -36,9 +36,11 @@
         </div>
         <div class="animate__animated animate__fadeInUp">
           <form class="flex flex-row gap-2" id='homeSearchForm'>
+            {{!-- AUTOCOMPLETE INPUT --}}
             <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1" aria-label="Search"
               id='homeSearchInput' type="search" autocomplete="off"
-            autocapitalize="off" spellcheck=false placeholder="Autocomplete" dir="ltr" aria-label="Search">
+            autocapitalize="off" spellcheck=false placeholder="Autocomplete" dir="ltr" aria-label="Search" maxlength="2048">
+            {{!-- AUTOCOMPLETE INPUT --}}
             <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
           </form>
         </div>
