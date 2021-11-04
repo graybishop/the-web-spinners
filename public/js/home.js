@@ -64,9 +64,9 @@ const addSavedVenueFromStar = async (event) => {
     });
 
     //redirects user if they are not logged in
-    if(response.redirected){
-      document.location = response.url
-      return
+    if (response.redirected) {
+      document.location = response.url;
+      return;
     }
 
     if (response.ok) {
@@ -74,7 +74,7 @@ const addSavedVenueFromStar = async (event) => {
       for (const element of spans) {
         element.classList.toggle('hidden');
       }
-      parent.parentElement.classList.add('animate__animated', 'animate__tada')
+      parent.parentElement.classList.add('animate__animated', 'animate__tada');
     } else {
       alert(response.statusText);
     }
@@ -94,8 +94,8 @@ const linkToDashboardVenue = (event) => {
 
   const venue = target.dataset.venueId;
 
-  document.location.href = `/dashboard#sectionFor${venue}`
-}
+  document.location.href = `/dashboard#sectionFor${venue}`;
+};
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
     type: 'loop',
     pagination: false,
     arrows: false,
-    autoplay:true,
+    autoplay: true,
     interval: 5000,
     speed: 0
   }).mount();
@@ -129,19 +129,37 @@ window.addEventListener('DOMContentLoaded', () => {
     type: 'loop',
     perPage: 1,
     interval: 2000,
-    autoplay:true,
+    autoplay: true,
     pauseOnHover: true,
     pauseOnFocus: true,
     speed: 700,
     pagination: true,
     autoWidth: true,
     gap: '1rem',
-    classes : {
+    classes: {
       pagination: 'splide__pagination visible sm:invisible',
       arrows: 'splide__arrows your-class-arrows visible sm:invisible'
     }
   }).mount();
 
-  cardCarousel.Components.Elements.track.style.overflow = 'visible'
-  
+  cardCarousel.Components.Elements.track.style.overflow = 'visible';
+
+
+  // eslint-disable-next-line no-undef
+  const autoCompleteJS = new autoComplete(
+    {
+      placeHolder: "Search for Food...",
+      data: {
+        src: cityName
+      },
+      resultItem: {
+        highlight: {
+          render: true
+        }
+      }
+    }
+  );
+
+
+
 });
