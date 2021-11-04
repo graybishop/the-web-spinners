@@ -2,51 +2,20 @@ const searchForCity = async (event) => {
   event.preventDefault();
 
   const city = event.target.elements[0].value.trim();
-
   if (!city) {
     return;
   }
-
-  // let lowercaseCity = city.toLowerCase();
-
-  // let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1);
-
   const response = await fetch(`/api/venues/${city}`);
-
   if (response.ok) {
     let responseVenue = await response.json();
     console.log(responseVenue);
-    renderVenueCard(responseVenue);
+    renderSearchCard(responseVenue);
     event.target.reset();
   } else {
     alert('Failed to find city.');
     event.target.reset();
     return;
   }
-
-};
-
-const renderVenueCard = (venue) => {
-  let resultsContainer = document.querySelector('#resultsContainer');
-
-
-
-  let htmlString2 =
-    `<div class="flex-none px-2 md:w-3/12  sm:w-full">
-  <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
-      <div class="bg-white rounded-lg shadow-2xl w-full h-full">
-          <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
-              <h2>${venue.location}</h2>
-          </header>
-          <div class="p-2">
-              <p>${venue.description}</p>
-              <a class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5" href="/venues/${venue.id}$"> My Venue</a>
-          </div>
-      </div>
-  </div>
-</div>
-  `;
-  resultsContainer.insertAdjacentHTML('beforeend', htmlString2);
 };
 
 const addSavedVenueFromStar = async (event) => {
@@ -103,28 +72,28 @@ const linkToDashboardVenue = (event) => {
 const getPosition = () => new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
 
 const getUserCityState = async () => {
-    let position;
-    try {
-        position = await getPosition();
-    } catch (error) {
-        console.log(error);
-        return { error };
-    }
+  let position;
+  try {
+    position = await getPosition();
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
 
-    const { latitude, longitude } = position.coords;
-    let geoData;
-    try {
-        let geoResponse = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6457baeadd874c80bd7a70f9ff672e82&no_anotations=1`);
-        geoData = await geoResponse.json();
-    } catch (error) {
-        console.log(error);
-        return { error };
-    }
-    let { city, state } = geoData.results[0].components;
-    return { city, state };
+  const { latitude, longitude } = position.coords;
+  let geoData;
+  try {
+    let geoResponse = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6457baeadd874c80bd7a70f9ff672e82&no_anotations=1`);
+    geoData = await geoResponse.json();
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
+  let { city, state } = geoData.results[0].components;
+  return { city, state };
 };
 // END User Location Section
-
+let searchCarousel;
 window.addEventListener('DOMContentLoaded', () => {
 
 
@@ -171,6 +140,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
   cardCarousel.Components.Elements.track.style.overflow = 'visible';
 
+  //card carousel
+  // eslint-disable-next-line no-undef
+  searchCarousel = new Splide('#searchCarousel', {
+    type: 'loop',
+    perPage: 1,
+    interval: 2000,
+    autoplay: true,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    speed: 700,
+    pagination: true,
+    autoWidth: true,
+    gap: '1rem',
+    classes: {
+      pagination: 'splide__pagination visible sm:invisible',
+      arrows: 'splide__arrows your-class-arrows visible sm:invisible'
+    }
+  }).mount();
+
+  // searchCarousel.Components.Elements.track.style.overflow = 'visible';
+
 
   // eslint-disable-next-line no-undef, no-unused-vars
   const autoCompleteJS = new autoComplete(
@@ -193,7 +183,7 @@ window.addEventListener('DOMContentLoaded', () => {
           if (!data.results.length) {
             // Create "No Results" message list element
             const message = document.createElement("div");
-            message.classList.add('text-gray-600', 'text-xl')
+            message.classList.add('text-gray-600', 'text-xl');
             // Add message text content
             message.innerHTML = `<span>No results found for "${data.query}"</span>`;
             // Add message list element to the list
@@ -223,6 +213,15 @@ window.addEventListener('DOMContentLoaded', () => {
   searchInput.addEventListener("selection", (event) => {
     // "event.detail" carries the autoComplete.js "feedback" object
     document.querySelector('#homeSearchInput').value = event.detail.selection.value;
-    homeSearchForm.requestSubmit();
+    // homeSearchForm.requestSubmit();
   });
 });
+
+
+const renderSearchCard = (venueInfo) => {
+  const slide = document.createElement('li');
+  slide.classList.add('splide__slide');
+  slide.classList.add('bg-red-500')
+  slide.innerText= JSON.stringify(venueInfo)
+  searchCarousel.add(slide);
+};
