@@ -18,6 +18,20 @@ router.get('/:city', async (req, res) => {
   res.json(foundCity.toJSON())
 })
 
+router.get('/state/:state', async (req, res) => {
+  let foundState = await Venue.findOne({
+    where:{
+      state: req.params.state
+    }
+  })
+
+  if(!foundState){
+    res.status(404).json()
+    return
+  }
+  res.json(foundState.toJSON())
+})
+
 router.post('/', withAuth, async (req, res) => {
   try {
     const newPlaces = await Venue.create({
