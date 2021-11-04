@@ -219,10 +219,47 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-const renderSearchCard = (venueInfo) => {
+const renderSearchCard = (venue) => {
   const slide = document.createElement('li');
-  slide.classList.add('splide__slide');
-  slide.classList.add('bg-red-500')
-  slide.innerText= JSON.stringify(venueInfo)
+  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 flex flex-col'
+
+  const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
+  if (venue.description.length > maxTextSize) {
+    venue.description = venue.description.substr(0, maxTextSize) + '...';
+  }
+  
+  let htmlString =`
+  <div
+    class="bg-white h-full rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
+    <div>
+      <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2">
+        <div>
+          <h2 class="text-xl font-extrabold">${venue.location}</h2>
+          <p class="text-lg text-gray-600">${venue.city}, ${venue.state}</p>
+        </div>
+      </div>
+      <div class="">
+        <img class="object-cover w-full h-56" src="https://picsum.photos/seed/${venue.location}/600/400"
+          alt="">
+      </div>
+    </div>
+    <div class="px-4 pb-2">
+      <p>${venue.description}</p>
+    </div>
+    <div class="px-4 mb-4 flex flex-row gap-2 mt-auto border-t pt-2">
+      <button onclick="location.href = '/venues/${venue.id}'" id="bookEventButton"
+        class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Visit Venue Page
+      </button>
+      <button onclick="location.href = '/venues/${venue.id}'" id="bookEventButton"
+        class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Book an Event
+      </button>
+    </div>
+  </div>`
+
+
+
+  slide.innerHTML = htmlString
   searchCarousel.add(slide);
 };

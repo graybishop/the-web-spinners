@@ -38,10 +38,10 @@
           <form class="flex flex-row gap-2" id='homeSearchForm'>
             {{!-- AUTOCOMPLETE INPUT --}}
             <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1" aria-label="Search"
-              id='homeSearchInput' type="search" autocomplete="off"
-            autocapitalize="off" spellcheck=false placeholder="Autocomplete" dir="ltr" aria-label="Search" maxlength="2048">
+              id='homeSearchInput' type="search" autocomplete="off" autocapitalize="off" spellcheck=false
+              placeholder="Autocomplete" dir="ltr" aria-label="Search" maxlength="2048">
             {{!-- AUTOCOMPLETE INPUT --}}
-            <input type="submit" class="hidden"/>
+            <input type="submit" class="hidden" />
             <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
           </form>
         </div>
@@ -53,18 +53,16 @@
 </section>
 
 <section>
-    <div class="" id='searchCarousel'>
+  <div class="" id='searchCarousel'>
     <div class="splide__track">
       <ul class="splide__list">
-        {{#each venues as |venue|}}
         <li class="splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 flex flex-col">
-         park
+          park
         </li>
-        {{/each}}
       </ul>
     </div>
   </div>
-</div>
+  </div>
 </section>
 
 {{!-- START VENUE CARDS --}}
@@ -208,8 +206,8 @@
         {{!-- start autocomplete form --}}
         <form class="mb-2" id='homeSearchForm'>
           <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" autocomplete="off"
-            autocapitalize="off" spellcheck=false placeholder="Search for City or State..." dir="ltr" aria-label="Search" id="autoComplete"
-            maxlength="2048" type="text">
+            autocapitalize="off" spellcheck=false placeholder="Search for City or State..." dir="ltr"
+            aria-label="Search" id="autoComplete" maxlength="2048" type="text">
           <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
         </form>
         {{!-- end autocomplete form --}}
