@@ -27,9 +27,31 @@ const submitNewEvent = async (event) => {
   }
 }
 
+const submitNewReview = async (review) => {
+  review.preventDefault()
+  console.log(review.target)
+
+  const text = document.querySelector('#reviewText').value.trim();
+  const venueId = review.target.dataset.venueId;
+console.log(text, venueId)
+  if (text && venueId){
+    const response = await fetch('/api/reviews', {
+      method: 'POST',
+      body: JSON.stringify({ venueId, text }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  
+    if (response.ok) {
+      location.reload();
+    } else {
+      alert(response.json());
+    }
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#bookEventButton').addEventListener('click', toggleEventModal);
   document.querySelector('#cancelButton').addEventListener('click', toggleEventModal);
   document.querySelector('#bookEventForm').addEventListener('submit', submitNewEvent);
+  document.querySelector('#newReview').addEventListener('submit', submitNewReview);
 });
