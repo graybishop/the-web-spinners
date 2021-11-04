@@ -88,9 +88,28 @@ window.addEventListener('DOMContentLoaded', () => {
     heightRatio: 0.3,
   }).mount();
 
-  let allSaveStars = document.querySelectorAll('.addSavedVenue')
+  let allSaveStars = document.querySelectorAll('.addSavedVenue');
   for (const element of allSaveStars) {
     element.addEventListener('click', addSavedVenueFromStar);
   }
 
+  //card carousel
+  let cardCarousel = new Splide('#cardCarousel', {
+    type: 'loop',
+    perPage: 1,
+    interval: 2000,
+    autoplay:true,
+    pauseOnHover: true,
+    speed: 300,
+    pagination: true,
+    autoWidth: true,
+    gap: '1rem',
+    classes : {
+      pagination: 'splide__pagination visible sm:invisible',
+      arrows: 'splide__arrows your-class-arrows visible sm:invisible'
+    }
+  }).mount();
+
+  console.log(cardCarousel.Components.Elements.track.style.overflow = 'visible')
+  
 });
