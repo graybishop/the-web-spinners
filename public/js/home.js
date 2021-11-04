@@ -97,7 +97,7 @@ const getUserCityState = async () => {
 // END User Location Section
 
 let searchCarousel;
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
 
 
   //Home hero carousel
@@ -197,12 +197,18 @@ window.addEventListener('DOMContentLoaded', () => {
     // "event.detail" carries the autoComplete.js "feedback" object
     document.querySelector('#homeSearchInput').value = event.detail.selection.value;
   });
+
+  //code for automatically searching for user location on homepage load
+  let userLocation = await getUserCityState()
+  document.querySelector('#homeSearchInput').value = userLocation.city || userLocation.state
+  homeSearchForm.requestSubmit()
+
 });
 
 
 const renderSearchCard = (venue) => {
   const slide = document.createElement('li');
-  slide.className = 'splide__slide w-full sm:w-5/12 md:w-4/12 lg:w-3/12 flex flex-col animate__animated animate__bounceInDown';
+  slide.className = 'splide__slide w-full sm:w-6/12 md:w-5/12 lg:w-4/12 flex flex-col animate__animated animate__bounceInDown';
 
   const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
   if (venue.description.length > maxTextSize) {
@@ -241,4 +247,6 @@ const renderSearchCard = (venue) => {
 
   slide.innerHTML = htmlString;
   searchCarousel.add(slide);
+
+  
 };
