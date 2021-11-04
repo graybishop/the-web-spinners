@@ -1,24 +1,26 @@
 const searchForCity = async (event) => {
   event.preventDefault();
 
-  const city = document.querySelector('#homeSearchInput').value.trim();
+  const city = event.target.elements[0].value.trim();
 
   if (!city) {
     return;
   }
 
-  let lowercaseCity = city.toLowerCase();
+  // let lowercaseCity = city.toLowerCase();
 
-  let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1);
+  // let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1);
 
-  const response = await fetch(`/api/venues/${capitalizedCity}`);
+  const response = await fetch(`/api/venues/${city}`);
 
   if (response.ok) {
     let responseVenue = await response.json();
     console.log(responseVenue);
     renderVenueCard(responseVenue);
+    event.target.reset();
   } else {
     alert('Failed to find city.');
+    event.target.reset();
     return;
   }
 
@@ -99,8 +101,7 @@ const linkToDashboardVenue = (event) => {
 
 
 window.addEventListener('DOMContentLoaded', () => {
-  let homeSearchForm = document.querySelector('#homeSearchForm')
-  homeSearchForm.addEventListener('submit', searchForCity);
+
 
   //Home hero carousel
   // eslint-disable-next-line no-undef
@@ -171,17 +172,21 @@ window.addEventListener('DOMContentLoaded', () => {
         highlight: "autoComplete_highlight",
         selected: "autoComplete_selected bg-blue-200"
       },
+      submit: true
     }
   );
 
-  document.querySelector("#homeSearchInput").addEventListener("selection",  (event) => {
+  let homeSearchForm = document.querySelector('#homeSearchForm');
+  let searchInput = document.querySelector("#homeSearchInput");
+  homeSearchForm.addEventListener('submit', (event) =>{
+    searchForCity(event)
+    autoCompleteJS.close()
+  } );
+
+  //Submits form when user clicks on city in suggestions list, or hits enter on suggestion list
+  searchInput.addEventListener("selection", (event) => {
     // "event.detail" carries the autoComplete.js "feedback" object
-    console.log(event.detail);
-    console.log('just the event', event)
-    homeSearchForm.requestSubmit()
-});
-
-
-
-
+    document.querySelector('#homeSearchInput').value = event.detail.selection.value;
+    homeSearchForm.requestSubmit();
+  });
 });
