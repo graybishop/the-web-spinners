@@ -205,7 +205,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 });
 
-
+//renders card onto homepage, given venue information
 const renderSearchCard = (venue) => {
   const slide = document.createElement('li');
   slide.className = 'splide__slide w-full sm:w-6/12 md:w-5/12 lg:w-4/12 flex flex-col animate__animated animate__bounceInDown';
@@ -247,6 +247,4 @@ const renderSearchCard = (venue) => {
 
   slide.innerHTML = htmlString;
   searchCarousel.add(slide);
-
-  
 };
