@@ -1,4 +1,4 @@
-const searchForCity = async (event) => {
+const searchForVenueByLocation = async (event) => {
   event.preventDefault();
 
   const city = event.target.elements[0].value.trim();
@@ -7,9 +7,10 @@ const searchForCity = async (event) => {
   }
   const response = await fetch(`/api/venues/${city}`);
   if (response.ok) {
-    let responseVenue = await response.json();
-    console.log(responseVenue);
-    renderSearchCard(responseVenue);
+    let responseList = await response.json();
+    console.log(responseList);
+    responseList.forEach(element => renderSearchCard(element))
+    // renderSearchCard(responseList);
     event.target.reset();
   } else {
     alert('Failed to find city.');
@@ -206,7 +207,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let homeSearchForm = document.querySelector('#homeSearchForm');
   let searchInput = document.querySelector("#homeSearchInput");
   homeSearchForm.addEventListener('submit', (event) => {
-    searchForCity(event);
+    searchForVenueByLocation(event);
     autoCompleteJS.close();
   });
 
