@@ -82,6 +82,19 @@ const addSavedVenueFromStar = async (event) => {
 
 };
 
+const linkToDashboardVenue = (event) => {
+  let target = event.target;
+  let parent = target.parentElement;
+
+  if (parent.tagName !== 'SPAN') {
+    return;
+  }
+
+  const venue = target.dataset.venueId;
+
+  document.location.href = `/dashboard#sectionFor${venue}`
+}
+
 
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
@@ -97,9 +110,15 @@ window.addEventListener('DOMContentLoaded', () => {
     speed: 0
   }).mount();
 
+  //attaches eventlistener to all hollow stars
   let allSaveStars = document.querySelectorAll('.addSavedVenue');
   for (const element of allSaveStars) {
     element.addEventListener('click', addSavedVenueFromStar);
+  }
+
+  let allRemoveStars = document.querySelectorAll('.removeSavedVenue');
+  for (const element of allRemoveStars) {
+    element.addEventListener('click', linkToDashboardVenue);
   }
 
   //card carousel
