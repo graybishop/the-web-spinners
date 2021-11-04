@@ -82,6 +82,8 @@ const addSavedVenueFromStar = async (event) => {
 
 };
 
+//the user will be redirected to their dashboard, and 
+//sent to the saved location in their list
 const linkToDashboardVenue = (event) => {
   let target = event.target;
   let parent = target.parentElement;
