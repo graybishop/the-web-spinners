@@ -135,7 +135,10 @@
   </section>
   {{/if}}
   {{!-- END Event Section --}}
-
+<form id="newReview" data-venue-id='{{venue.id}}'>
+  <input type="text" id="reviewText">
+  <input type="submit">
+</form>
   {{>review}}
 
 </div>
