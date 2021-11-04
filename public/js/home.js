@@ -90,8 +90,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-undef
   new Splide('#image-slider', {
     type: 'loop',
-    cover: true,
-    heightRatio: 0.5,
     pagination: false,
     arrows: false,
     autoplay:true,
