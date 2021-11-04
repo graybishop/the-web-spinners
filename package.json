@@ -25,6 +25,7 @@
     "tailwindcss": "^2.2.19"
   },
   "dependencies": {
+    "@tarekraafat/autocomplete.js": "^10.2.6",
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
     "dotenv": "^10.0.0",

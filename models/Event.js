@@ -15,6 +15,10 @@ Event.init(
         },
         date: {
             type: DataTypes.DATE
+        },
+        cost: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1,
         }
     },
     {
