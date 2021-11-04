@@ -22,6 +22,7 @@
   list-style: none;
 
 }
+
 /*list of booked events*/
 ul {
   display: center;
@@ -63,4 +64,23 @@ nav{
 
 .bg-cus-black{
   background-color: var(--bg-black);
+}
+
+.hero-image-slides{
+  height: 24rem
+}
+
+@media (min-width: 768px) { 
+  
+  .hero-image-slides{
+    height: 36rem;
+  }
+
+}
+
+@media (min-width: 1280px) { 
+  .hero-image-slides{
+    height: 48rem;
+  }
+
 }
