@@ -11,11 +11,13 @@ const submitNewEvent = async (event) => {
   const description = document.querySelector('#eventDescription').value.trim();
   const date = document.querySelector('#eventDate').value
   const venueId = event.target.dataset.venueId;
+const numberOfPeople=document.querySelector('#numberOfPeople')
+const cost=parseInt(numberOfPeople.value) * Math.floor(Math.random()*10 +1);
 
   if (name && description && date && venueId){
     const response = await fetch('/api/events', {
       method: 'POST',
-      body: JSON.stringify({ venueId, date, name, description }),
+      body: JSON.stringify({ venueId, date, name, description, cost}),
       headers: { 'Content-Type': 'application/json' },
     });
   

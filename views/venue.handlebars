@@ -67,6 +67,24 @@
                   <input type="datetime-local" id="eventDate" class="border" required>
                 </div>
                 <div class="flex flex-col">
+                  <label for="numberOfPeople" class="text-left">How many people:</label>
+                   <select id="numberOfPeople" class="border">
+                    <option value="" disabled selected>Please Choose...</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        
+                      </select>
                 </div>
               </form>
             </div>
@@ -127,6 +145,7 @@
           <p>{{event.description}}</p>
         </div>
         <div class="flex-shrink-0">
+          <p>${{event.cost}}</p>
           <button class="border-blue-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Save Event</button>
         </div>
       </div>
