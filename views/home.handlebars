@@ -36,8 +36,9 @@
         </div>
         <div class="animate__animated animate__fadeInUp">
           <form class="flex flex-row gap-2" id='homeSearchForm'>
-            <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1 " type="search"
-              placeholder="Autocomplete TDB" aria-label="Search" id='homeSearchInput'>
+            <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black flex-1" aria-label="Search"
+              id='homeSearchInput' type="search" autocomplete="off"
+            autocapitalize="off" spellcheck=false placeholder="Autocomplete" dir="ltr" aria-label="Search">
             <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
           </form>
         </div>
@@ -190,8 +191,10 @@
       <div class="">
         {{!-- start autocomplete form --}}
         <form class="mb-2" id='homeSearchForm'>
-          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" autocomplete="off" autocapitalize="off" spellcheck=false placeholder="Autocomplete dir="ltr" TDB" aria-label="Search" id="autoComplete" maxlength="2048" type="text">
-         <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
+          <input class="rounded-lg shadow-2xl text-2xl py-2 px-4 text-black" type="search" autocomplete="off"
+            autocapitalize="off" spellcheck=false placeholder="Search for City or State..." dir="ltr" aria-label="Search" id="autoComplete"
+            maxlength="2048" type="text">
+          <button class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 text-2xl" type="submit">Search</button>
         </form>
         {{!-- end autocomplete form --}}
       </div>

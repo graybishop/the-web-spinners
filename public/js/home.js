@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
     type: 'loop',
     pagination: false,
     arrows: false,
-    autoplay: true,
+    // autoplay: true,
     interval: 5000,
     speed: 0
   }).mount();
@@ -148,9 +148,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-undef, no-unused-vars
   const autoCompleteJS = new autoComplete(
     {
-      placeHolder: "Search for Food...",
+      selector: "#homeSearchInput",
+      placeHolder: "Search for City or State...",
       data: {
-
         // eslint-disable-next-line no-undef
         src: cityName
       },
@@ -158,20 +158,17 @@ window.addEventListener('DOMContentLoaded', () => {
       resultsList: {
         tag: "ul",
         id: "autoComplete_list",
-        class: "results_list bg-white rounded text-black absolute text-2xl py-4 px-4 list-none mt-1 w-6/12 sm:w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12",
-        destination: "#autoComplete",
+        class: "results_list bg-white rounded text-black text-2xl py-4 absolute top-full px-4 list-none mt-1 w-7/12 md:w-6/12 lg:w-5/12 shadow-sm",
+        destination: "#homeSearchInput",
         position: "afterend",
         maxResults: 5,
         noResults: true,
-        element: (list, data) => {
-          list.setAttribute("data-parent", "food-list");
-        },
       },
       resultItem: {
         tag: "li",
-        class: "autoComplete_result mb-2",
+        class: "autoComplete_result mb-2 border-b rounded p-2",
         highlight: "autoComplete_highlight",
-        selected: "autoComplete_selected"
+        selected: "autoComplete_selected bg-blue-200"
       },
     }
   );
