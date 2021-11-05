@@ -86,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .querySelector('#newVenueButton')
     .addEventListener('click', addRandomVenue);
 
-  document
-    .querySelector('#savedVenuesSection')
-    .addEventListener('click', removeVenue);
-
+  let savedVenuesSection = document.querySelector('#savedVenuesSection')
+  if(savedVenuesSection){
+    savedVenuesSection.addEventListener('click', removeVenue);
+  }
   document
     .querySelector('#newEventButton')
     .addEventListener('click', addRandomEvent);
