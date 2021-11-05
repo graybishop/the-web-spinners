@@ -41,14 +41,19 @@ router.get('/', async (req, res) => {
 router.get('/venues/:id', async (req, res) => {
   try {
 
-    let result = await Venue.findByPk(req.params.id, {
+    let venueData = await Venue.findByPk(req.params.id, {
       include: [Event, Review]
     });
 
+
+    let userHasSaved = await venueData.hasUser(await User.findByPk(req.session.userId))
+
+
     res.render('venue', {
       title: 'Venue',
-      venue: result.toJSON(),
-      loggedIn: req.session.loggedIn
+      venue: venueData.toJSON(),
+      loggedIn: req.session.loggedIn,
+      userHasSaved
     });
   } catch (err) {
     res.status(500).json(err);

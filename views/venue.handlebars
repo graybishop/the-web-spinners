@@ -2,31 +2,12 @@
 <div class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
   id='eventModal'>
   <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <!--
-      Background overlay, show/hide based on modal state.
 
-      Entering: "ease-out duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
     <!-- This element is to trick the browser into centering the modal contents. -->
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-    <!--
-      Modal panel, show/hide based on modal state.
-
-      Entering: "ease-out duration-300"
-        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        To: "opacity-100 translate-y-0 sm:scale-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100 translate-y-0 sm:scale-100"
-        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    -->
     <div
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
       <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -68,23 +49,23 @@
                 </div>
                 <div class="flex flex-col">
                   <label for="numberOfPeople" class="text-left">How many people:</label>
-                   <select id="numberOfPeople" class="border">
+                  <select id="numberOfPeople" class="border">
                     <option value="" disabled selected>Please Choose...</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        
-                      </select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+
+                  </select>
                 </div>
               </form>
             </div>
@@ -119,10 +100,19 @@
       <div class="bg-white-400 py-2">
         <p>{{venue.description}}</p>
       </div>
-      <div>
+      <div class="flex flex-row gap-2">
         <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
           Book Event
         </button>
+        {{#unless userHasSaved}}
+        <button id="saveVenueButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right" data-venue-id='{{venue.id}}'>
+          Save Venue <i class="fas fa-star"></i>
+        </button>
+        {{else}}
+        <button id="removeSavedVenueButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right" data-venue-id='{{venue.id}}'>
+          Remove From Saved <i class="fas fa-star"></i>
+        </button>
+        {{/unless}}
       </div>
     </div>
   </section>
@@ -154,10 +144,10 @@
   </section>
   {{/if}}
   {{!-- END Event Section --}}
-<form id="newReview" data-venue-id='{{venue.id}}'>
-  <input type="text" id="reviewText">
-  <input type="submit">
-</form>
+  <form id="newReview" data-venue-id='{{venue.id}}'>
+    <input type="text" id="reviewText">
+    <input type="submit">
+  </form>
   {{>review}}
 
 </div>
