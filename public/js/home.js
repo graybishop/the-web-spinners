@@ -1,50 +1,23 @@
-const searchForCity = async (event) => {
+const searchForVenueByLocation = async (event) => {
   event.preventDefault();
 
-  const city = document.querySelector('#homeSearchInput').value.trim();
-
+  const city = event.target.elements[0].value.trim();
   if (!city) {
     return;
   }
-
-  let lowercaseCity = city.toLowerCase();
-
-  let capitalizedCity = lowercaseCity.charAt(0).toUpperCase() + lowercaseCity.slice(1);
-
-  const response = await fetch(`/api/venues/${capitalizedCity}`);
-
+  const response = await fetch(`/api/venues/${city}`);
   if (response.ok) {
-    let responseVenue = await response.json();
-    console.log(responseVenue);
-    renderVenueCard(responseVenue);
+    let responseList = await response.json();
+    console.log(responseList);
+    responseList.forEach(element => renderSearchCard(element));
+    // renderSearchCard(responseList);
+    document.querySelector('#searchResultContainer').classList.remove('hidden')
+    event.target.reset();
   } else {
     alert('Failed to find city.');
+    event.target.reset();
     return;
   }
-
-};
-
-const renderVenueCard = (venue) => {
-  let resultsContainer = document.querySelector('#resultsContainer');
-
-
-
-  let htmlString2 =
-    `<div class="flex-none px-2 md:w-3/12  sm:w-full">
-  <div class="bg-white-400 py-2 flex items-center justify-center w-full h-full">
-      <div class="bg-white rounded-lg shadow-2xl w-full h-full">
-          <header class="bg-gray-100 rounded-t-lg p-2 text-xl font-extrabold">
-              <h2>${venue.location}</h2>
-          </header>
-          <div class="p-2">
-              <p>${venue.description}</p>
-              <a class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5" href="/venues/${venue.id}$"> My Venue</a>
-          </div>
-      </div>
-  </div>
-</div>
-  `;
-  resultsContainer.insertAdjacentHTML('beforeend', htmlString2);
 };
 
 const addSavedVenueFromStar = async (event) => {
@@ -64,9 +37,9 @@ const addSavedVenueFromStar = async (event) => {
     });
 
     //redirects user if they are not logged in
-    if(response.redirected){
-      document.location = response.url
-      return
+    if (response.redirected) {
+      document.location = response.url;
+      return;
     }
 
     if (response.ok) {
@@ -74,7 +47,7 @@ const addSavedVenueFromStar = async (event) => {
       for (const element of spans) {
         element.classList.toggle('hidden');
       }
-      parent.parentElement.classList.add('animate__animated', 'animate__tada')
+      parent.parentElement.classList.add('animate__animated', 'animate__tada');
     } else {
       alert(response.statusText);
     }
@@ -82,9 +55,50 @@ const addSavedVenueFromStar = async (event) => {
 
 };
 
+//the user will be redirected to their dashboard, and 
+//sent to the saved location in their list
+const linkToDashboardVenue = (event) => {
+  let target = event.target;
+  let parent = target.parentElement;
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#homeSearchForm').addEventListener('submit', searchForCity);
+  if (parent.tagName !== 'SPAN') {
+    return;
+  }
+
+  const venue = target.dataset.venueId;
+
+  document.location.href = `/dashboard#sectionFor${venue}`;
+};
+
+// User Location Section
+const getPosition = () => new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
+
+const getUserCityState = async () => {
+  let position;
+  try {
+    position = await getPosition();
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
+
+  const { latitude, longitude } = position.coords;
+  let geoData;
+  try {
+    let geoResponse = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=6457baeadd874c80bd7a70f9ff672e82&no_anotations=1`);
+    geoData = await geoResponse.json();
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
+  let { city, state } = geoData.results[0].components;
+  return { city, state };
+};
+// END User Location Section
+
+let searchCarousel;
+window.addEventListener('DOMContentLoaded', async () => {
+
 
   //Home hero carousel
   // eslint-disable-next-line no-undef
@@ -92,35 +106,145 @@ window.addEventListener('DOMContentLoaded', () => {
     type: 'loop',
     pagination: false,
     arrows: false,
-    autoplay:true,
-    interval: 5000,
+    autoplay: true,
+    interval: 7500,
     speed: 0
   }).mount();
 
+  //attaches eventlistener to all hollow stars
   let allSaveStars = document.querySelectorAll('.addSavedVenue');
   for (const element of allSaveStars) {
     element.addEventListener('click', addSavedVenueFromStar);
   }
 
-  //card carousel
+  let allRemoveStars = document.querySelectorAll('.removeSavedVenue');
+  for (const element of allRemoveStars) {
+    element.addEventListener('click', linkToDashboardVenue);
+  }
+
+
+  // Search Card carousel
   // eslint-disable-next-line no-undef
-  let cardCarousel = new Splide('#cardCarousel', {
+  searchCarousel = new Splide('#searchCarousel', {
     type: 'loop',
     perPage: 1,
-    interval: 2000,
-    autoplay:true,
+    interval: 3500,
+    autoplay: true,
     pauseOnHover: true,
     pauseOnFocus: true,
     speed: 700,
     pagination: true,
     autoWidth: true,
     gap: '1rem',
-    classes : {
+    classes: {
       pagination: 'splide__pagination visible sm:invisible',
       arrows: 'splide__arrows your-class-arrows visible sm:invisible'
     }
   }).mount();
 
-  cardCarousel.Components.Elements.track.style.overflow = 'visible'
-  
+  searchCarousel.Components.Elements.track.style.overflow = 'visible';
+
+
+  // eslint-disable-next-line no-undef, no-unused-vars
+  const autoCompleteJS = new autoComplete(
+    {
+      selector: "#homeSearchInput",
+      placeHolder: "Search for City or State...",
+      data: {
+        // eslint-disable-next-line no-undef
+        src: cityName
+      },
+      wrapper: false,
+      resultsList: {
+        tag: "ul",
+        id: "autoComplete_list",
+        class: "results_list bg-white rounded text-black text-2xl py-4 absolute top-full px-4 list-none mt-1 w-7/12 md:w-6/12 lg:w-5/12 shadow-sm",
+        destination: "#homeSearchInput",
+        position: "afterend",
+        maxResults: 10,
+        element: (list, data) => {
+          if (!data.results.length) {
+            // Create "No Results" message list element
+            const message = document.createElement("div");
+            message.classList.add('text-gray-600', 'text-xl');
+            // Add message text content
+            message.innerHTML = `<span>No results found for "${data.query}"</span>`;
+            // Add message list element to the list
+            list.appendChild(message);
+          }
+        },
+        noResults: true
+      },
+      resultItem: {
+        tag: "li",
+        class: "autoComplete_result mb-2 border-b rounded p-2",
+        highlight: "autoComplete_highlight",
+        selected: "autoComplete_selected bg-blue-200"
+      },
+      submit: true
+    }
+  );
+
+  let homeSearchForm = document.querySelector('#homeSearchForm');
+  let searchInput = document.querySelector("#homeSearchInput");
+  homeSearchForm.addEventListener('submit', (event) => {
+    searchForVenueByLocation(event);
+    autoCompleteJS.close();
+  });
+
+  //Submits form when user clicks on city in suggestions list, or hits enter on suggestion list
+  searchInput.addEventListener("selection", (event) => {
+    // "event.detail" carries the autoComplete.js "feedback" object
+    document.querySelector('#homeSearchInput').value = event.detail.selection.value;
+  });
+
+  //code for automatically searching for user location on homepage load
+  let userLocation = await getUserCityState()
+  document.querySelector('#homeSearchInput').value = userLocation.city || userLocation.state
+  homeSearchForm.requestSubmit()
+
 });
+
+//renders card onto homepage, given venue information
+const renderSearchCard = (venue) => {
+  const slide = document.createElement('li');
+  slide.className = 'splide__slide w-full sm:w-6/12 md:w-5/12 lg:w-4/12 flex flex-col animate__animated animate__bounceInDown';
+
+  const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
+  if (venue.description.length > maxTextSize) {
+    venue.description = venue.description.substr(0, maxTextSize) + '...';
+  }
+
+  let htmlString = `
+  <div
+    class="bg-white h-full rounded-lg shadow-xl w-full flex flex-col gap-2 transition-all transform scale-100 hover:scale-105 hover:shadow-2xl">
+    <div>
+      <div class="bg-gray-200 rounded-t-lg px-4 flex flex-row justify-between py-2">
+        <div>
+          <h2 class="text-xl font-extrabold">${venue.location}</h2>
+          <p class="text-lg text-gray-600">${venue.city}, ${venue.state}</p>
+        </div>
+      </div>
+      <div class="">
+        <img class="object-cover w-full h-56" src="https://picsum.photos/seed/${venue.location}/600/400"
+          alt="">
+      </div>
+    </div>
+    <div class="px-4 pb-2">
+      <p>${venue.description}</p>
+    </div>
+    <div class="px-4 mb-4 flex flex-row gap-2 mt-auto border-t pt-2">
+      <button onclick="location.href = '/venues/${venue.id}'" id="bookEventButton"
+        class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Visit Venue Page
+      </button>
+      <button onclick="location.href = '/venues/${venue.id}'" id="bookEventButton"
+        class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 mt-5-right hover:bg-blue-600">
+        Book an Event
+      </button>
+    </div>
+  </div>`;
+
+  slide.innerHTML = htmlString;
+  searchCarousel.add(slide);
+};
