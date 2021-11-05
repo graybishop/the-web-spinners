@@ -1,5 +1,4 @@
 // eslint-disable-next-line no-undef
-
 let homePageIntro = introJs().setOptions({
   steps: [{
     title: 'Welcome Mortals',

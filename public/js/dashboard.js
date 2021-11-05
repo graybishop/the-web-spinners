@@ -80,6 +80,12 @@ const removeEvent = async (event) => {
   }
 };
 
+const resetFirstTime = (event) => {
+  console.log(event)
+  localStorage.removeItem('previousVisitor')
+  document.location.href = '/'
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   document
@@ -101,4 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let target = document.querySelector(window.location.hash)
     target.classList.add('animate__animated', 'animate__headShake', 'bg-yellow-100', 'p-3')
   }
+
+  document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
 });
