@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/login');
+    res.redirect(303, '/login');
     return;
   }
 

@@ -80,23 +80,33 @@ const removeEvent = async (event) => {
   }
 };
 
+const resetFirstTime = (event) => {
+  console.log(event)
+  localStorage.removeItem('previousVisitor')
+  document.location.href = '/'
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#newVenueButton')
     .addEventListener('click', addRandomVenue);
 
-  document
-    .querySelector('#savedVenuesSection')
-    .addEventListener('click', removeVenue);
-
+  let savedVenuesSection = document.querySelector('#savedVenuesSection')
+  if(savedVenuesSection){
+    savedVenuesSection.addEventListener('click', removeVenue);
+  }
   document
     .querySelector('#newEventButton')
     .addEventListener('click', addRandomEvent);
   document
     .querySelector('#bookedEventsSection')
     .addEventListener('click', removeEvent);
-});
 
-tippy('#myEditButton', {
-  content: "edit this section",
+  if(window.location.hash){
+    let target = document.querySelector(window.location.hash)
+    target.classList.add('animate__animated', 'animate__headShake', 'bg-yellow-100', 'p-3')
+  }
+
+  document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
 });
