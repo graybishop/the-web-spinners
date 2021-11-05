@@ -2,31 +2,12 @@
 <div class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
   id='eventModal'>
   <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <!--
-      Background overlay, show/hide based on modal state.
 
-      Entering: "ease-out duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
     <!-- This element is to trick the browser into centering the modal contents. -->
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-    <!--
-      Modal panel, show/hide based on modal state.
-
-      Entering: "ease-out duration-300"
-        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        To: "opacity-100 translate-y-0 sm:scale-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100 translate-y-0 sm:scale-100"
-        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    -->
     <div
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
       <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -68,23 +49,23 @@
                 </div>
                 <div class="flex flex-col">
                   <label for="numberOfPeople" class="text-left">How many people:</label>
-                   <select id="numberOfPeople" class="border">
+                  <select id="numberOfPeople" class="border">
                     <option value="" disabled selected>Please Choose...</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        
-                      </select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+
+                  </select>
                 </div>
               </form>
             </div>
@@ -109,57 +90,110 @@
 </div>
 {{!-- MODAL ENDS HERE --}}
 
-<div class="container mx-auto">
+<div class="container mx-auto grid gap-4 lg:grid-cols-5">
   {{!--START Title and Description--}}
-  <section class="flex flex-row flex-wrap">
-    <div class="bg-white rounded-lg shadow-2xl p-4 my-2">
-      <div>
-        <h2><strong class="text-lg">{{venue.location}}</strong></h2>
+  <section class="bg-white flex flex-col gap-2 shadow-lg sm:mt-2 sm:rounded-xl md:flex-row col-span-3">
+    <div class="md:w-4/12 md:flex-shrink-0">
+      <img class="object-cover w-full h-56 md:h-full md:rounded-l"
+        src="https://picsum.photos/seed/{{venue.location}}/900/900" alt="">
+    </div>
+    <div>
+      <div class="p-4">
+        <div>
+          <h2 class="text-2xl font-bold">{{venue.location}}</h2>
+          <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
+        </div>
+        <div class="bg-white-400">
+          <p>{{venue.description}}</p>
+        </div>
       </div>
-      <div class="bg-white-400 py-2">
-        <p>{{venue.description}}</p>
-      </div>
-      <div>
-        <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
+      {{!-- button section --}}
+      <div class="flex flex-row gap-2 px-4 pb-4">
+        <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 hover:bg-blue-600 ">
           Book Event
         </button>
+        {{#unless userHasSaved}}
+        <button id="saveVenueButton"
+          class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 hover:bg-blue-400 hover:text-white"
+          data-venue-id='{{venue.id}}'>
+          Save Venue <i class="fas fa-star"></i>
+        </button>
+        {{else}}
+        <button id="removeSavedVenueButton"
+          class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 hover:bg-blue-400 hover:text-white"
+          data-venue-id='{{venue.id}}'>
+          Remove From Saved <span class="text-red-400 hover:text-red-500"><i class="fas fa-star"></i></span>
+        </button>
+        {{/unless}}
       </div>
     </div>
+    {{!-- button section --}}
   </section>
   {{!--END Title and Description--}}
 
-  {{!-- Event Section --}}
-  {{#if venue.events.length}}
-  <section class="flex flex-col gap-2">
-    <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
-      <div>
-        <h2><strong class="text-lg">Booked Events</strong></h2>
-      </div>
-      {{#each venue.events as |event|}}
-      <div class="flex flex-row justify-between mb-2">
-        <div class="flex flex-col">
-          <div>
-            <a class="underline " href="#">{{event.name}}</a>
-            <p>{{formatDate event.date}}</p>
+  {{!-- START EVENTS & REVIEWS --}}
+  <div class="col-span-3 lg:col-span-2">
+    {{!-- Event Section --}}
+    {{#if venue.events.length}}
+    <section class="flex flex-col gap-2">
+      <div class="bg-white rounded-lg shadow-xl p-4 flex-1">
+        <div class="mb-2">
+          <h2 class="text-xl font-bold border-b">Booked Events</h2>
+        </div>
+        {{#each venue.events as |event|}}
+        <div class="flex flex-row justify-between align-center mb-2">
+          <div class="flex flex-col">
+            <div>
+              <a class="underline text-xl" href="#">{{event.name}}</a>
+              <p>{{formatDate event.date}}</p>
+            </div>
+            <p>{{event.description}}</p>
+            <p>${{event.cost}}</p>
           </div>
-          <p>{{event.description}}</p>
+          <div class="flex-shrink-0 flex flex-row items-center">
+            <button class="border-blue-400 border text-blue-400 rounded p-2 hover:bg-blue-400 hover:text-white"
+              data-event-id='{{event.id}}'>Request Invite</button>
+          </div>
         </div>
-        <div class="flex-shrink-0">
-          <p>${{event.cost}}</p>
-          <button class="border-blue-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Save Event</button>
-        </div>
+        {{/each}}
       </div>
-      {{/each}}
-    </div>
-  </section>
-  {{/if}}
-  {{!-- END Event Section --}}
-<form id="newReview" data-venue-id='{{venue.id}}'>
-  <input type="text" id="reviewText">
-  <input type="submit">
-</form>
-  {{>review}}
+    </section>
+    {{/if}}
+    {{!-- END Event Section --}}
+    {{!-- START REVIEW FORM  --}}
+    <section class="bg-white w-full flex flex-col items-center p-4 shadow-xl rounded">
+      <form id="newReview" data-venue-id='{{venue.id}}'>
+        <input type="text" id="reviewText" class="border">
+        <input type="submit" class="border">
+      </form>
+    </section>
+    {{!-- End REVIEW FORM --}}
 
+    {{!-- Review Section --}}
+    {{#if venue.reviews.length}}
+    <section class="flex flex-col gap-2">
+      <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
+        <div>
+          <h2><strong class="text-lg">User Reviews</strong></h2>
+        </div>
+        {{#each venue.reviews as |review|}}
+        <div class="flex flex-row justify-between mb-2">
+          <div class="flex flex-col">
+            <div>
+              <a class="underline" href="#">{{review.name}}</a>
+              <p>{{review.createdAt}}</p>
+            </div>
+            <p>{{review.user.username}}</p>
+            <p>{{review.text}}</p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+  </div>
+  {{!-- END EVENTS & REVIEWS --}}
 </div>
 
 <script src="/js/venue.js"></script>

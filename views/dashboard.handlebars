@@ -1,22 +1,25 @@
 <section class="container mx-auto lg:w-7/12 xl:grid grid-cols-2 gap-2">
   {{!-- test buttons --}}
-  <div class="flex flex-col p-4 gap-2 border-yellow-500 border-4 bg-yellow-200 m-4 col-span-2	">
+  <div class="flex flex-col p-4 gap-2 border-white-50 border-4 bg-white-20 m-4 col-span-2	">
+  <div class="imageContainer">
+      <img src="https://picsum.photos/200/300" alt="dash-image" id="dashboard-image" />
+    </a>
+  </div>
+  <p class="imageDetails"></p>
     <div class="border-b-2">
       <h1 class="text-3xl">Test Buttons</h1>
     </div>
     <div>
-      <button class="border-2 rounded p-2" id='newVenueButton'>Add Random Saved Venue</button>
+      <button class="border-blue-500 border-2 rounded p-2" id='newVenueButton'>Add Random Saved Venue</button>
     </div>
     <div>
-      <button class="border-2 rounded p-2" id='newEventButton'>Add Random Event </button>
+      <button class="border-blue-500 border-2 rounded p-2" id='newEventButton'>Add Random Event </button>
     </div>
   </div>
-
   {{!-- User Info Section --}}
   <div class="flex flex-col p-4 col-span-2">
     <div class="border-b-2">
-      <h1 class="text-3xl">User Info</h1>
-    </div>
+      <img class="h-12 w-12 rounded-full border-2 text-3xl" id="profileImage" src="https://picsum.photos/200/300?random=1" alt="">User Info</h1></div>
     <p>Username: {{user.username}}</p>
     <p>Email: {{user.email}}</p>
   </div>
@@ -28,7 +31,7 @@
       <h1 class="text-3xl">Saved Venues</h1>
     </div>
     {{#each user.venues as |venue|}}
-    <div class="flex flex-row justify-between mb-2">
+    <div class="flex flex-row justify-between mb-2" id='sectionFor{{venue.id}}'>
       <div class="flex flex-col">
         <a class="underline " href="/venues/{{venue.id}}">{{venue.location}}</a>
         <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
@@ -75,8 +78,12 @@
 
     {{#each user.reviews as |review|}}
     <div>
-
+<p> {{review.text}}</p>
     </div>
+    <div class="flex-shrink-0">
+            <button class="border-red-500 border-2 rounded p-2" data-event-id='{{review.id}}'>Edit</button>
+            <button id="myButton">My Button</button>
+          </div>
     {{/each}}
   </div>
   {{/if}}

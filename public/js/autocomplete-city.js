@@ -1,3 +1,4 @@
+/* eslint-env browser*/
 
 const cityName = ["Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "Alexandria", "Allentown", "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch","Apple Valley", "Appleton", "Arlington", 
 "Arvada", "Asheville", "Athens", "Atlanta", "Atlantic City","Augusta", "Aurora", "Austin", "Bakersfield", "Baltimore", "Barnstable", "Baton Rouge", "Beaumont","Bel Air", "Bellevue", "Berkeley", "Bethlehem", 
@@ -32,3 +33,4 @@ const stateNames = ["Alaska","Alabama","Arkansas","Arizona","California","Colora
 "Idaho","Illinois","Indiana","Kansas","Kentucky","Louisiana","Massachusetts","Maryland","Maine","Michigan","Minnesota","Missouri","Mississippi","Montana","North Carolina","North Dakota","Nebraska",
 "New Hampshire","New Jersey","New Mexico","Nevada","New York","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
 "Virginia","Vermont","Washington","Wisconsin","West Virginia","Wyoming"];
+
