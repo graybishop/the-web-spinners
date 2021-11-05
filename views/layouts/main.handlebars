@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   {{!-- tailwind css link --}}
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/intro.js/themes/introjs-modern.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   {{!-- Autocomplete styling link --}}
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.02.min.css">
@@ -52,9 +58,34 @@
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
+
+ <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>  
+ <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+ <script>
+   introJs().setOptions({
+  steps: [{
+    title: 'Welcome Mortals',
+    intro: 'Here you can plan your next gathering! Birthday? Wedding? Retirement? Divorce? We offer the Best Venues at cut throat prices! We ask that you come prepared for the time of your life!'
+  },
+  {
+    element: document.querySelector('#homeSearchForm'),
+    intro: 'You can enter your city here to check out a location near you...'
+  },
+  {
+    element: document.querySelector('#bookEventButton'),
+    intro: 'Click the Visit Venue Page to get intimate details of our place, Login to Book your event. Star your favorites and modify your event details. '
+
+  },
+  {
+    title: `That's it!` ,
+    intro: "Book Now! let's set this in stone!"
+  }]
+}).start();
+ </script>
+
   {{!-- AUTOCOMPLETE SCRIPT LINK --}}
   <script src="/js/locationgit.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+
 </body>
 
 </html>
