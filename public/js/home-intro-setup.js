@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-undef
-introJs().setOptions({
+
+let homePageIntro = introJs().setOptions({
   steps: [{
     title: 'Welcome Mortals',
     intro: 'Here you can plan your next gathering! Birthday? Wedding? Retirement? Divorce? We offer the Best Venues at cut throat prices! We ask that you come prepared for the time of your life!'
@@ -17,4 +18,11 @@ introJs().setOptions({
     title: `That's it!`,
     intro: "Book Now! let's set this in stone!"
   }]
-}).start();
+})
+
+//Intro only runs on first visit to site
+if(!window.localStorage.getItem('previousVisitor')){
+  console.log(window.localStorage.getItem('previousVisitor'))
+  homePageIntro.start()
+  window.localStorage.setItem('previousVisitor', true)
+}
