@@ -95,4 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#bookedEventsSection')
     .addEventListener('click', removeEvent);
+
+  if(window.location.hash){
+    let target = document.querySelector(window.location.hash)
+    target.classList.add('animate__animated', 'animate__headShake', 'bg-yellow-100', 'p-3')
+  }
 });
