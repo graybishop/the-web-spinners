@@ -17,11 +17,24 @@
   --bg-green: #00A676;
 
 }
+/* profile image */
+#profileImage {
+  border-color: #030303;
+box-shadow:10px 5px 5px gray;
+}
 
 #user-info{
   list-style: none;
 
 }
+
+
+#dashboard-image{
+  max-width: 700px;
+  max-height: 500px;
+  border: 10px solid black;
+  box-shadow:10px 5px 5px gray;
+} 
 
 
 /*star-saved event here */

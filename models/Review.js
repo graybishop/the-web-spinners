@@ -8,7 +8,12 @@ Review.init(
     text: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+
+    // countRating: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // }
   },
   {
     sequelize,
