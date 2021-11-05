@@ -37,6 +37,7 @@
     "mysql2": "^2.3.2",
     "nodemon": "^2.0.14",
     "postcss-cli": "^9.0.1",
+    "react": "^17.0.2",
     "sequelize": "^6.8.0"
   }
 }

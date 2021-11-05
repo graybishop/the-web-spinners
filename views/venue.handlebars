@@ -154,12 +154,34 @@
   </section>
   {{/if}}
   {{!-- END Event Section --}}
+  {{!-- Review Section --}}
 <form id="newReview" data-venue-id='{{venue.id}}'>
   <input type="text" id="reviewText">
   <input type="submit">
 </form>
   {{>review}}
 
-</div>
+
+  {{#if venue.reviews.length}}
+    <section class="flex flex-col gap-2">
+      <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
+        <div>
+          <h2><strong class="text-lg">User Reviews</strong></h2>
+        </div>
+        {{#each venue.reviews as |review|}}
+        <div class="flex flex-row justify-between mb-2">
+          <div class="flex flex-col">
+            <div>
+              <a class="underline" href="#">{{review.name}}</a>
+              <p>{{review.createdAt}}</p>
+            </div>
+             <p>{{review.user.username}}</p>
+            <p>{{review.text}}</p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
 
 <script src="/js/venue.js"></script>

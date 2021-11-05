@@ -33,13 +33,14 @@ const submitNewReview = async (review) => {
   review.preventDefault()
   console.log(review.target)
 
+// const countRating= document.querySelector("#count-rating").value
   const text = document.querySelector('#reviewText').value.trim();
   const venueId = review.target.dataset.venueId;
 console.log(text, venueId)
   if (text && venueId){
     const response = await fetch('/api/reviews', {
       method: 'POST',
-      body: JSON.stringify({ venueId, text }),
+      body: JSON.stringify({ venueId, text}),
       headers: { 'Content-Type': 'application/json' },
     });
   

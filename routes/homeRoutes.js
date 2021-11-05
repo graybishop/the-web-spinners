@@ -40,10 +40,19 @@ router.get('/', async (req, res) => {
 
 router.get('/venues/:id', async (req, res) => {
   try {
-
-    let result = await Venue.findByPk(req.params.id, {
-      include: [Event, Review]
+ let result = await Venue.findByPk(req.params.id, {
+      include: [
+        Event,
+        {
+         model: Review, 
+         include: [User],
+       
+        }, 
+      ]
     });
+
+console.log(result.toJSON());
+
 
     res.render('venue', {
       title: 'Venue',
@@ -80,6 +89,7 @@ router.get('/dashboard', async (req, res) => {
       Review
     ]
   });
+console.log(userData.reviews);
 
   res.render('dashboard', {
     title: 'Dashboard',
