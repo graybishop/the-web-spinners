@@ -1,24 +1,25 @@
 const toggleEventModal = () => {
-  let eventModal = document.querySelector('#eventModal');
-  eventModal.classList.toggle('hidden');
+  let eventModal = document.querySelector("#eventModal");
+  eventModal.classList.toggle("hidden");
 };
 
 const submitNewEvent = async (event) => {
   event.preventDefault();
   console.log(event.target);
 
-  const name = document.querySelector('#eventName').value.trim();
-  const description = document.querySelector('#eventDescription').value.trim();
-  const date = document.querySelector('#eventDate').value;
+  const name = document.querySelector("#eventName").value.trim();
+  const description = document.querySelector("#eventDescription").value.trim();
+  const date = document.querySelector("#eventDate").value;
   const venueId = event.target.dataset.venueId;
-  const numberOfPeople = document.querySelector('#numberOfPeople');
-  const cost = parseInt(numberOfPeople.value) * Math.floor(Math.random() * 10 + 1);
+  const numberOfPeople = document.querySelector("#numberOfPeople");
+  const cost =
+    parseInt(numberOfPeople.value) * Math.floor(Math.random() * 10 + 1);
 
   if (name && description && date && venueId) {
-    const response = await fetch('/api/events', {
-      method: 'POST',
+    const response = await fetch("/api/events", {
+      method: "POST",
       body: JSON.stringify({ venueId, date, name, description, cost }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
@@ -29,23 +30,39 @@ const submitNewEvent = async (event) => {
   }
 };
 
-const submitNewReview = async (review) => {
-  review.preventDefault();
-  console.log(review.target);
+const submitNewReview = async (event) => {
+  event.preventDefault();
 
-// const countRating= document.querySelector("#count-rating").value
-  const text = document.querySelector('#reviewText').value.trim();
-  const venueId = review.target.dataset.venueId;
-  console.log(text, venueId);
-  if (text && venueId) {
-    const response = await fetch('/api/reviews', {
-      method: 'POST',
-      body: JSON.stringify({ venueId, text}),
-      headers: { 'Content-Type': 'application/json' },
+  console.log(event.target);
+  // const countRating= document.querySelector("#count-rating").value
+  let stars = document.querySelectorAll("input[name=estrellas]");
+
+  let score;
+  for (const element of stars) {
+    if (element.checked) {
+      score = element.value;
+    }
+  }
+
+  const text = document.querySelector("#reviewText").value.trim();
+  const venueId = event.target.dataset.venueId;
+
+  console.log(text, venueId, score);
+  if (text && venueId && score) {
+    const response = await fetch("/api/reviews", {
+      method: "POST",
+      body: JSON.stringify({ venueId, text, score }),
+      headers: { "Content-Type": "application/json" },
     });
 
+    //redirects user if they are not logged in
+    if (response.redirected) {
+      document.location = response.url;
+      return;
+    }
+
     if (response.ok) {
-      location.reload();
+      // location.reload();
     } else {
       alert(response.json());
     }
@@ -58,10 +75,10 @@ const addUserSavedVenue = async (event) => {
   const venue = target.dataset.venueId;
 
   if (venue) {
-    const response = await fetch('/api/users/saved-venues', {
-      method: 'POST',
+    const response = await fetch("/api/users/saved-venues", {
+      method: "POST",
       body: JSON.stringify({ venue }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     //redirects user if they are not logged in
@@ -71,8 +88,11 @@ const addUserSavedVenue = async (event) => {
     }
 
     if (response.ok) {
-      target.classList.add('animate__animated', 'animate__bounceOut');
-      target.children[0].classList.add('animate__animated', 'animate__heartBeat')
+      target.classList.add("animate__animated", "animate__bounceOut");
+      target.children[0].classList.add(
+        "animate__animated",
+        "animate__heartBeat"
+      );
     } else {
       alert(response.statusText);
     }
@@ -80,48 +100,59 @@ const addUserSavedVenue = async (event) => {
 };
 
 const removeVenue = async (event) => {
-  console.log(event)
+  console.log(event);
   let target = event.target;
   const venue = event.target.dataset.venueId;
   if (venue) {
-    const response = await fetch('/api/users/saved-venues', {
-      method: 'DELETE',
+    const response = await fetch("/api/users/saved-venues", {
+      method: "DELETE",
       body: JSON.stringify({ venue }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
-    
+
     if (response.redirected) {
       document.location = response.url;
       return;
     }
 
     if (response.ok) {
-      target.classList.add('animate__animated', 'animate__bounceOut');
-      target.children[0].classList.add('animate__animated', 'animate__heartBeat')
+      target.classList.add("animate__animated", "animate__bounceOut");
+      target.children[0].classList.add(
+        "animate__animated",
+        "animate__heartBeat"
+      );
     } else {
       alert(response.statusText);
     }
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   //Main book event button
-  document.querySelector('#bookEventButton').addEventListener('click', toggleEventModal);
+  document
+    .querySelector("#bookEventButton")
+    .addEventListener("click", toggleEventModal);
 
   //Save and remove venue from user buttons
-  let saveVenue = document.querySelector('#saveVenueButton')
-  if(saveVenue){
-    saveVenue.addEventListener('click', addUserSavedVenue);
+  let saveVenue = document.querySelector("#saveVenueButton");
+  if (saveVenue) {
+    saveVenue.addEventListener("click", addUserSavedVenue);
   }
-  let removeSavedVenue = document.querySelector('#removeSavedVenueButton')
-  if(removeSavedVenue){
-    removeSavedVenue.addEventListener('click', removeVenue);
+  let removeSavedVenue = document.querySelector("#removeSavedVenueButton");
+  if (removeSavedVenue) {
+    removeSavedVenue.addEventListener("click", removeVenue);
   }
 
   //Modal buttons
-  document.querySelector('#cancelButton').addEventListener('click', toggleEventModal);
-  document.querySelector('#bookEventForm').addEventListener('submit', submitNewEvent);
+  document
+    .querySelector("#cancelButton")
+    .addEventListener("click", toggleEventModal);
+  document
+    .querySelector("#bookEventForm")
+    .addEventListener("submit", submitNewEvent);
 
   //Review form button
-  document.querySelector('#newReview').addEventListener('submit', submitNewReview);
+  document
+    .querySelector("#newReview")
+    .addEventListener("submit", submitNewReview);
 });
