@@ -90,31 +90,39 @@
 </div>
 {{!-- MODAL ENDS HERE --}}
 
-<div class="container mx-auto">
+<div class="container mx-auto flex flex-col gap-4">
   {{!--START Title and Description--}}
-  <section class="flex flex-row flex-wrap">
-    <div class="bg-white rounded-lg shadow-2xl p-4 my-2">
+  <section class="bg-white flex flex-col gap-2 shadow sm:mt-2 sm:rounded-xl">
+    <img class="object-cover w-full h-56" src="https://picsum.photos/seed/{{venue.location}}/900/900" alt="">
+    <div class="p-4">
       <div>
-        <h2><strong class="text-lg">{{venue.location}}</strong></h2>
+        <h2 class="text-2xl font-bold">{{venue.location}}</h2>
+        <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
       </div>
-      <div class="bg-white-400 py-2">
+      <div class="bg-white-400">
         <p>{{venue.description}}</p>
       </div>
-      <div class="flex flex-row gap-2">
-        <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right">
-          Book Event
-        </button>
-        {{#unless userHasSaved}}
-        <button id="saveVenueButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right" data-venue-id='{{venue.id}}'>
-          Save Venue <i class="fas fa-star"></i>
-        </button>
-        {{else}}
-        <button id="removeSavedVenueButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 mt-5-right" data-venue-id='{{venue.id}}'>
-          Remove From Saved <i class="fas fa-star"></i>
-        </button>
-        {{/unless}}
-      </div>
     </div>
+    {{!-- button section --}}
+    <div class="flex flex-row gap-2 px-4 pb-4">
+      <button id="bookEventButton" class="bg-blue-400 text-blue-50 rounded-lg py-2 px-4 hover:bg-blue-600 ">
+        Book Event
+      </button>
+      {{#unless userHasSaved}}
+      <button id="saveVenueButton"
+        class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 hover:bg-blue-400 hover:text-white"
+        data-venue-id='{{venue.id}}'>
+        Save Venue <i class="fas fa-star"></i>
+      </button>
+      {{else}}
+      <button id="removeSavedVenueButton"
+        class="border border-blue-400 text-blue-400 rounded-lg py-2 px-4 hover:bg-blue-400 hover:text-white"
+        data-venue-id='{{venue.id}}'>
+        Remove From Saved <span class="text-red-400 hover:text-red-500"><i class="fas fa-star"></i></span>
+      </button>
+      {{/unless}}
+    </div>
+    {{!-- button section --}}
   </section>
   {{!--END Title and Description--}}
 
@@ -122,21 +130,22 @@
   {{#if venue.events.length}}
   <section class="flex flex-col gap-2">
     <div class="bg-white rounded-lg shadow-2xl p-4 my-2 flex-1">
-      <div>
-        <h2><strong class="text-lg">Booked Events</strong></h2>
+      <div class="mb-2">
+        <h2 class="text-xl font-bold border-b">Booked Events</h2>
       </div>
       {{#each venue.events as |event|}}
-      <div class="flex flex-row justify-between mb-2">
+      <div class="flex flex-row justify-between align-center mb-2">
         <div class="flex flex-col">
           <div>
-            <a class="underline " href="#">{{event.name}}</a>
+            <a class="underline text-xl" href="#">{{event.name}}</a>
             <p>{{formatDate event.date}}</p>
           </div>
           <p>{{event.description}}</p>
-        </div>
-        <div class="flex-shrink-0">
           <p>${{event.cost}}</p>
-          <button class="border-blue-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Save Event</button>
+        </div>
+        <div class="flex-shrink-0 flex flex-row items-center">
+          <button class="border-blue-400 border text-blue-400 rounded p-2 hover:bg-blue-400 hover:text-white"
+            data-event-id='{{event.id}}'>Request Invite</button>
         </div>
       </div>
       {{/each}}
@@ -144,10 +153,12 @@
   </section>
   {{/if}}
   {{!-- END Event Section --}}
-  <form id="newReview" data-venue-id='{{venue.id}}'>
-    <input type="text" id="reviewText">
-    <input type="submit">
-  </form>
+  <section class="bg-white w-full flex flex-col items-center p-4">
+    <form id="newReview" data-venue-id='{{venue.id}}'>
+      <input type="text" id="reviewText" class="border">
+      <input type="submit" class="border">
+    </form>
+  </section>
   {{>review}}
 
 </div>
