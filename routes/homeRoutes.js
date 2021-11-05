@@ -3,16 +3,16 @@ const router = require('express').Router();
 const { Venue, User, Review, Event } = require('../models');
 
 router.get('/', async (req, res) => {
-  let firstSetData = await Venue.findAll({ 
+  let firstSetData = await Venue.findAll({
     limit: 6,
   });
 
   //checks if logged in user has any of the venues saved
-  let userData = await User.findByPk(req.session.userId)
-  let userHasVenue = []
-  if(userData){
+  let userData = await User.findByPk(req.session.userId);
+  let userHasVenue = [];
+  if (userData) {
     for (const element of firstSetData) {
-      userHasVenue.push(await element.hasUser(userData))
+      userHasVenue.push(await element.hasUser(userData));
     }
   }
   const maxTextSize = 150; //higher numbers mean more letters on the homepage cards descriptions
@@ -21,10 +21,10 @@ router.get('/', async (req, res) => {
     if (data.description.length > maxTextSize) {
       data.description = data.description.substr(0, maxTextSize) + '...';
     }
-    if(userHasVenue.length){
-      data.userSaved = userHasVenue[index]
+    if (userHasVenue.length) {
+      data.userSaved = userHasVenue[index];
     } else {
-      data.userSaved = false
+      data.userSaved = false;
     }
     return data;
   });
@@ -40,24 +40,29 @@ router.get('/', async (req, res) => {
 
 router.get('/venues/:id', async (req, res) => {
   try {
- let result = await Venue.findByPk(req.params.id, {
+
+    let venueData = await Venue.findByPk(req.params.id, {
       include: [
         Event,
         {
-         model: Review, 
-         include: [User],
-       
-        }, 
+          model: Review,
+          include: [User],
+
+        },
       ]
     });
 
-console.log(result.toJSON());
+
+
+    let userHasSaved = await venueData.hasUser(await User.findByPk(req.session.userId));
+
 
 
     res.render('venue', {
       title: 'Venue',
-      venue: result.toJSON(),
-      loggedIn: req.session.loggedIn
+      venue: venueData.toJSON(),
+      loggedIn: req.session.loggedIn,
+      userHasSaved
     });
   } catch (err) {
     res.status(500).json(err);
@@ -89,7 +94,7 @@ router.get('/dashboard', async (req, res) => {
       Review
     ]
   });
-console.log(userData.reviews);
+  console.log(userData.reviews);
 
   res.render('dashboard', {
     title: 'Dashboard',

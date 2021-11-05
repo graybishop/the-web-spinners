@@ -2,20 +2,42 @@ const router = require('express').Router();
 
 const { Venue } = require('../../models');
 const {withAuth} = require('../../utils/helpers.js');
+const { Op } = require("sequelize");
 
 //route used by search bar on the homepage
-router.get('/:city', async (req, res) => {
-  let foundCity = await Venue.findOne({
+router.get('/:location', async (req, res) => {
+  let venuesInCityData = await Venue.findAll({
     where:{
-      city: req.params.city
-    }
+      [Op.or]:[{city: req.params.location}, {state: req.params.location}]
+    },
+    attributes:{
+      exclude:['country', 'longitude', 'latitude', 'cityLongitude', 'cityLatitude']
+    },
+    limit:8
   })
 
-  if(!foundCity){
+  
+  if(!venuesInCityData){
     res.status(404).json({message: `Could not find venue with that city.`})
     return
   }
-  res.json(foundCity.toJSON())
+  
+  let venuesInCity = venuesInCityData.map(element => element.toJSON())
+  res.json(venuesInCity)
+})
+
+router.get('/state/:state', async (req, res) => {
+  let foundState = await Venue.findOne({
+    where:{
+      state: req.params.state
+    }
+  })
+
+  if(!foundState){
+    res.status(404).json()
+    return
+  }
+  res.json(foundState.toJSON())
 })
 
 router.post('/', withAuth, async (req, res) => {
