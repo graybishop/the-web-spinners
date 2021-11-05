@@ -80,7 +80,6 @@ const removeEvent = async (event) => {
   }
 };
 
-
 document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#newVenueButton')
@@ -96,4 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#bookedEventsSection')
     .addEventListener('click', removeEvent);
+});
+
+tippy('#myEditButton', {
+  content: "edit this section",
 });
