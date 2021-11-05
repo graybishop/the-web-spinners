@@ -94,8 +94,6 @@ router.get('/dashboard', async (req, res) => {
       Review
     ]
   });
-  console.log(userData.reviews);
-
   res.render('dashboard', {
     title: 'Dashboard',
     loggedIn: req.session.loggedIn,

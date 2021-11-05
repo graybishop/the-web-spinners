@@ -17,7 +17,7 @@
           <div class="hero-image-slides">
             <img class="object-cover h-full w-full" src="/images/cones.jpg">
           </div>
-          <li class="splide__slide">
+        <li class="splide__slide">
           <div class="hero-image-slides">
             <img class="object-cover h-full w-full" src="/images/mid_evil.jpg">
           </div>
@@ -56,8 +56,12 @@
   {{!-- end title section --}}
 </section>
 
-
+{{!-- START SEARCH RESULTS --}}
 <section class="p-4 overflow-hidden relative hidden" id='searchResultContainer'>
+  <div class="py-8 px-4">
+    <h2 class="text-4xl font-bold">Your Search Results!</h2>
+    <p class="py-2">Find your search results here; search by city or state. If you gave us permission to use your location, we might've already searched for you!</p>
+  </div>
   <div class="" id='searchCarousel'>
     <div class="splide__track">
       <ul class="splide__list">
@@ -66,6 +70,7 @@
   </div>
   </div>
 </section>
+{{!-- END SEARCH RESULTS --}}
 
 
 {{!-- START VENUE CARDS --}}
@@ -87,23 +92,23 @@
           <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
         </div>
         {{#if venue.userSaved}}
-        <div class="text-2xl text-yellow-500">
-          <span class='hidden addSavedVenue'>
-            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+        <button class="text-2xl text-yellow-500 removeSavedVenue" data-venue-id="{{venue.id}}">
+          <span class='hidden'>
+            <i class="far fa-star"></i>
           </span>
-          <span class="removeSavedVenue">
-            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          <span class="">
+            <i class="fas fa-star"></i>
           </span>
-        </div>
+        </button>
         {{else}}
-        <div class="text-2xl text-yellow-500">
-          <span class='addSavedVenue'>
-            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+        <button class="text-2xl text-yellow-500 addSavedVenue" data-venue-id="{{venue.id}}">
+          <span class=''>
+            <i class="far fa-star" ></i>
           </span>
-          <span class="hidden removeSavedVenue">
-            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          <span class="hidden">
+            <i class="fas fa-star"></i>
           </span>
-        </div>
+        </button>
         {{/if}}
       </div>
       <div class="">
@@ -309,5 +314,8 @@
 {{!-- END FOOTER --}}
 
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 <script src="/js/autocomplete-city.js"></script>
 <script src="/js/home.js"></script>
+<script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+<script src="/js/home-intro-setup.js"></script>
