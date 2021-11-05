@@ -87,23 +87,23 @@
           <p class="text-lg text-gray-600">{{venue.city}}, {{venue.state}}</p>
         </div>
         {{#if venue.userSaved}}
-        <div class="text-2xl text-yellow-500">
-          <span class='hidden addSavedVenue'>
-            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+        <button class="text-2xl text-yellow-500 removeSavedVenue" data-venue-id="{{venue.id}}">
+          <span class='hidden'>
+            <i class="far fa-star"></i>
           </span>
-          <span class="removeSavedVenue">
-            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          <span class="">
+            <i class="fas fa-star"></i>
           </span>
-        </div>
+        </button>
         {{else}}
-        <div class="text-2xl text-yellow-500">
-          <span class='addSavedVenue'>
-            <i class="far fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+        <button class="text-2xl text-yellow-500 addSavedVenue" data-venue-id="{{venue.id}}">
+          <span class=''>
+            <i class="far fa-star" ></i>
           </span>
-          <span class="hidden removeSavedVenue">
-            <i class="fas fa-star" data-venue-id="{{venue.id}}" role="button" tabindex="0"></i>
+          <span class="hidden">
+            <i class="fas fa-star"></i>
           </span>
-        </div>
+        </button>
         {{/if}}
       </div>
       <div class="">

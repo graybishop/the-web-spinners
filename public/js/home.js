@@ -8,9 +8,7 @@ const searchForVenueByLocation = async (event) => {
   const response = await fetch(`/api/venues/${city}`);
   if (response.ok) {
     let responseList = await response.json();
-    console.log(responseList);
     responseList.forEach(element => renderSearchCard(element));
-    // renderSearchCard(responseList);
     document.querySelector('#searchResultContainer').classList.remove('hidden')
     event.target.reset();
   } else {
@@ -22,10 +20,8 @@ const searchForVenueByLocation = async (event) => {
 
 const addSavedVenueFromStar = async (event) => {
   let target = event.target;
-  let parent = target.parentElement;
-
-  if (parent.tagName !== 'SPAN') {
-    return;
+  while (target.dataset.venueId == undefined) {
+    target = target.parentElement
   }
 
   const venue = target.dataset.venueId;
@@ -43,26 +39,26 @@ const addSavedVenueFromStar = async (event) => {
     }
 
     if (response.ok) {
-      let spans = parent.parentElement.children;
+      let spans = target.children;
       for (const element of spans) {
         element.classList.toggle('hidden');
       }
-      parent.parentElement.classList.add('animate__animated', 'animate__tada');
+      target.classList.remove('addSavedVenue')
+      target.classList.add('removeSavedVenue')
+      target.classList.add('animate__animated', 'animate__tada');
+      target.addEventListener('click', linkToDashboardVenue)
     } else {
       alert(response.statusText);
     }
   }
-
 };
 
 //the user will be redirected to their dashboard, and 
 //sent to the saved location in their list
 const linkToDashboardVenue = (event) => {
   let target = event.target;
-  let parent = target.parentElement;
-
-  if (parent.tagName !== 'SPAN') {
-    return;
+  while (target.dataset.venueId == undefined) {
+    target = target.parentElement
   }
 
   const venue = target.dataset.venueId;
