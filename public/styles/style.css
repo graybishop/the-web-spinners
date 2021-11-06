@@ -9,16 +9,31 @@
   }
 }
 
+.reviewEmo li{
+  display:inline-block;
+}
+
+
+.dropdown{
+
+display:flex;
+justify-content: space-around;
+/* align-items: center; */
+/* position:absolute; */
+border-radius:5px;
+
+}
 
 :root{
-  --bg-pink: #EE6E73;
+  --bg-pink: #f8f6f6;
   --bg-blue: #3C91E6;
   --bg-black: #342E37;
   --bg-green: #00A676;
 
 }
-/* profile image */
-
+#editBtn{
+  float: right
+}
 
 /*star-saved event here */
 .saved{

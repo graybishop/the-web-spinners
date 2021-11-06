@@ -151,15 +151,19 @@
 
       {{#each user.reviews as |review|}}
         <div>
+          <p>{{review.createdAt}}</p>
           <p> {{review.text}}</p>
-        </div>
-        <div class="flex-shrink-0">
-          <button
-            class="border-red-500 border-2 rounded p-2"
-            id="myButton"
-            data-event="{{review.id}}"
-          >Edit</button>
-
+        <nav>
+        <div class="group-hover:flex-shrink-0">
+          <button class="border-blue-500 border-2 rounded p-0" id="editBtn"
+            data-event="{{review.id}}">Edit</button>   
+          <ul class="reviewEmo">
+          <li><a href="#">👍</a></li>
+          <li><a href="#">👎</a></li>
+          <li><a href="#">❤️</a></li>
+          </ul>
+          </div>
+        </nav>
         </div>
       {{/each}}
     </div>
