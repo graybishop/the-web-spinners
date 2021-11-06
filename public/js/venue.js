@@ -127,6 +127,40 @@ const removeVenue = async (event) => {
   }
 };
 
+const updateEventsForCalendar = async (calenderEl, calendarInstance) => {
+  const venue = calenderEl.dataset.venueId;
+
+  if (venue) {
+    const response = await fetch(`/api/events/by-venue/${venue}`);
+
+    //redirects user if they are not logged in
+    if (response.redirected) {
+      document.location = response.url;
+      return;
+    }
+
+    if (response.ok) {
+      let eventList = await response.json()
+      let parsedEventList = eventList.map((element)=>{
+        console.log(element.date)
+        console.log(new Date(element.date))
+        let newEvent = {
+          title: element.name,
+          start: element.date,
+          allDay:true
+        }
+        return newEvent
+      })
+      for (const event of parsedEventList) {
+        calendarInstance.addEvent(event)
+      }
+      calendarInstance.render()
+    } else {
+      alert(response.statusText);
+    }
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   //Main book event button
   document
@@ -158,24 +192,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Calender Scripting Start
   let calendarEl = document.querySelector('#jsCalender');
-  // let myCalendar = jsCalendar.new(calenderEl);
-
-  // myCalendar.onDateClick((event, date) => {
-  //   console.log(event);
-  //   console.log(date.toLocaleString());
-  // });
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 500,
-    dateClick: (event) =>{
-      toggleEventModal()
-      document.querySelector("#eventDate").value = event.dateStr
-      console.log(event)
-      console.log(event.date.toLocaleString())
+    dateClick: (event) => {
+      toggleEventModal();
+      document.querySelector("#eventDate").value = event.dateStr;
     }
   });
-  calendar.render();
-  calendar.addEvent({title: 'test party', start: '2021-11-14', allDay: true})
-  calendar.render()
+  updateEventsForCalendar(calendarEl, calendar)
 });

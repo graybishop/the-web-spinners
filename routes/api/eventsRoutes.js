@@ -77,4 +77,26 @@ router.get('/by-user/:userId', async (req, res) =>{
   res.json(eventsData.toJSON())
 })
 
+//get route for event by userId
+router.get('/by-venue/:venueId', async (req, res) =>{
+  if (!req.session.loggedIn) {
+    res.redirect('/login');
+    return;
+  }
+
+  const eventsData = await Event.findAll({
+    where: {
+      venueId: req.params.venueId
+    }
+  })
+
+  if (!eventsData){
+    res.status(404).json({message: 'Cannot find events or venue'})
+    return
+  }
+
+  let listOfVenueEvents = eventsData.map(element => element.toJSON())
+  res.json(listOfVenueEvents)
+})
+
 module.exports = router;
