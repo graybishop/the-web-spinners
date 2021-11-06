@@ -78,7 +78,4 @@ document.addEventListener('DOMContentLoaded', () => {
   tippy('#bookedEventsSection', {
     content: "This is your booked event...",
     allowHTML: true, })
-
-  document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
-
 });

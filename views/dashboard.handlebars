@@ -1,128 +1,137 @@
-<section class="container mx-auto lg:w-7/12 xl:grid grid-cols-2 gap-2">
-  {{! User Info Section }}
-  <div class="flex flex-row p-4 col-span-2 gap-2">
-    <div class="border-r-2 flex-1 flex flex-col items-center p-4 animate__animated animate__fadeInLeft">
-      <h1 class="text-3xl font-bold">Hello, {{user.username}}!</h1>
-      <img class="object-contain rounded border shadow max-h-80" id="profileImage"
-        src="https://source.unsplash.com/featured/1000x1000/?profile" alt="user profile image" />
-    </div>
-    <div class="flex-1 p-4 flex flex-col gap-2">
-      <div>
-        <h3 class="text-xl border-b font-semibold">Username</h3>
-        <p>{{user.username}}</p>
+<div class="bg-cover" style="background-image: url(/images/dashboard-background.jpg);">
+  <section class="container mx-auto flex flex-col lg:w-7/12 xl:grid grid-cols-2 gap-2">
+    {{! User Info Section }}
+    <div class="flex flex-row p-4 col-span-2 gap-2 bg-white xl:rounded">
+      <div class="border-r-2 flex-1 flex flex-col items-center p-4 animate__animated animate__fadeInLeft">
+        <h1 class="text-3xl font-bold">Hello, {{user.username}}!</h1>
+        <img class="object-contain rounded border shadow max-h-80" id="profileImage"
+          src="https://source.unsplash.com/featured/1000x1000/?profile" alt="user profile image" />
       </div>
-      <div>
-        <h3 class="text-xl border-b font-semibold">Email</h3>
-        <p>{{user.email}}</p>
-      </div>
-      <div>
-        <h3 class="text-xl border-b font-semibold">Saved Venues</h3>
-        <p>
-          {{#if user.venues.length}}
-          {{user.venues.length}}
-          {{else}}
-          0
-          {{/if}}
-        </p>
-      </div>
-      <div>
-        <h3 class="text-xl border-b font-semibold">Booked Events</h3>
-        <p>
-          {{#if user.events.length}}
-          {{user.events.length}}
-          {{else}}
-          0
-          {{/if}}
-        </p>
-      </div>
-      <div>
-        <h3 class="text-xl border-b font-semibold">Written Reviews</h3>
-        <p>
-          {{#if user.reviews.length}}
-          {{user.reviews.length}}
-          {{else}}
-          0
-          {{/if}}
-        </p>
-      </div>
-      <div class="flex flex-col items-end">
-        <button class="border-yellow-400 text-yellow-600 border-2 rounded p-1 hover:bg-yellow-500 hover:text-white text-sm"
-          id="resetFirstTime">Reset Tutorial</button>
-      </div>
-    </div>
-  </div>
-
-  {{!Saved Places Section }}
-  {{#if user.venues.length}}
-  <div class="flex flex-col p-4" id="savedVenuesSection">
-    <div class="border-b-2 mb-2">
-      <h1 class="text-3xl font-semibold">Saved Venues</h1>
-    </div>
-    {{#each user.venues as |venue|}}
-    <div class="flex flex-row justify-between mb-2" id="sectionFor{{venue.id}}">
-      <div class="flex flex-col">
-        <a class="underline" href="/venues/{{venue.id}}">{{venue.location}}</a>
-        <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
-      </div>
-      <div>
-        <button class="border-red-500 border-2 rounded p-2" data-venue-id="{{venue.id}}">Remove</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-  {{! Booked Events Section }}
-  {{#if user.events.length}}
-  {{! (`id`,`name`,`description`,`date`,`createdAt`,`updatedAt`,`venueId`,`userId`) }}
-  <div class="flex flex-col p-4" id="bookedEventsSection">
-    <div class="border-b-2 mb-2">
-      <h1 class="text-3xl font-semibold">Booked Events</h1>
-    </div>
-    {{#each user.events as |event|}}
-    <div class="flex flex-row justify-between mb-2">
-      <div class="flex flex-col">
+      <div class="flex-1 p-4 flex flex-col gap-2">
         <div>
-          <a class="underline font-medium" href="/venues/{{venue.id}}">{{event.name}}</a>
-          <p>{{formatDate event.date}}</p>
-          <p class="text-gray-500">{{event.venue.location}},
-            {{event.venue.city}},
-            {{event.venue.stateAbbrev}}</p>
+          <h3 class="text-xl border-b font-semibold">Username</h3>
+          <p>{{user.username}}</p>
         </div>
-        <p>{{event.description}}</p>
-      </div>
-      <div class="flex-shrink-0">
-        <button class="border-red-500 border-2 rounded p-2" data-event-id="{{event.id}}">Unbook Event</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-  {{!Reviews Section }}
-  {{#if user.reviews.length}}
-  <div class="flex flex-col p-4">
-    <div class="border-b-2">
-      <h1 class="text-3xl font-semibold">Written Reviews</h1>
-    </div>
-
-    {{#each user.reviews as |review|}}
-    <div>
-      <p>{{review.createdAt}}</p>
-      <p> {{review.text}}</p>
-      <nav>
-        <div class="group-hover:flex-shrink-0">
-          <button class="border-blue-500 border-2 rounded p-0" id="editBtn" data-event="{{review.id}}">Edit</button>
-          <ul class="reviewEmo">
-            <li><a href="#">👍</a></li>
-            <li><a href="#">👎</a></li>
-            <li><a href="#">❤️</a></li>
-          </ul>
+        <div>
+          <h3 class="text-xl border-b font-semibold">Email</h3>
+          <p>{{user.email}}</p>
         </div>
-      </nav>
+        <div>
+          <h3 class="text-xl border-b font-semibold">Saved Venues</h3>
+          <p>
+            {{#if user.venues.length}}
+            {{user.venues.length}}
+            {{else}}
+            0
+            {{/if}}
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl border-b font-semibold">Booked Events</h3>
+          <p>
+            {{#if user.events.length}}
+            {{user.events.length}}
+            {{else}}
+            0
+            {{/if}}
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl border-b font-semibold">Written Reviews</h3>
+          <p>
+            {{#if user.reviews.length}}
+            {{user.reviews.length}}
+            {{else}}
+            0
+            {{/if}}
+          </p>
+        </div>
+        <div class="flex flex-col items-end">
+          <button class="bg-yellow-400 text-white rounded p-1 hover:bg-yellow-600" id="resetFirstTime">Reset
+            Tutorial</button>
+        </div>
+      </div>
     </div>
-    {{/each}}
-  </div>
-  {{/if}}
-</section>
+
+    {{!Saved Places Section }}
+    {{#if user.venues.length}}
+    <div class="flex flex-col p-4 bg-white xl:rounded" id="savedVenuesSection">
+      <div class="border-b-2 mb-2">
+        <h1 class="text-3xl font-semibold">Saved Venues</h1>
+      </div>
+      {{#each user.venues as |venue|}}
+      <div class="flex flex-row justify-between mb-2 items-center" id="sectionFor{{venue.id}}">
+        <div class="flex flex-col">
+          <a class="underline" href="/venues/{{venue.id}}">{{venue.location}}</a>
+          <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
+        </div>
+        <div>
+          <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700"
+            data-venue-id="{{venue.id}}">Remove</button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{! Booked Events Section }}
+    {{#if user.events.length}}
+    {{! (`id`,`name`,`description`,`date`,`createdAt`,`updatedAt`,`venueId`,`userId`) }}
+    <div class="flex flex-col p-4 bg-white xl:rounded" id="bookedEventsSection">
+      <div class="border-b-2 mb-2">
+        <h1 class="text-3xl font-semibold">Booked Events</h1>
+      </div>
+      {{#each user.events as |event|}}
+      <div class="flex flex-row justify-between items-center mb-2">
+        <div class="flex flex-col">
+          <div>
+            <a class="underline font-medium" href="/venues/{{venue.id}}">{{event.name}}</a>
+            <p>{{formatDate event.date}}</p>
+            <p class="text-gray-500">{{event.venue.location}},
+              {{event.venue.city}},
+              {{event.venue.stateAbbrev}}</p>
+          </div>
+          <p>{{event.description}}</p>
+        </div>
+        <div class="flex-shrink-0">
+          <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700" data-event-id="{{event.id}}">Unbook
+            Event</button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!Reviews Section }}
+    {{#if user.reviews.length}}
+    <div class="flex flex-col p-4 bg-white xl:rounded">
+      <div class="border-b-2">
+        <h1 class="text-3xl font-semibold">Written Reviews</h1>
+      </div>
+
+      {{#each user.reviews as |review|}}
+      <div class="flex flex-row justify-between items-center pb-1 border-b mb-4">
+        <div class="flex-auto">
+          <p>{{formatDate review.createdAt}}</p>
+          <p> {{review.text}}</p>
+        </div>
+        <div class=" flex flex-col gap-2 flex-shrink-0">
+          {{!-- <button class="bg-blue-500 text-blue-50 rounded p-2 hover:bg-blue-700" data-event="{{review.id}}">Edit Review</button> --}}
+          <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700" data-event="{{review.id}}">Remove Review</button>
+        </div>
+        {{!-- <nav>
+          <div class="group-hover:flex-shrink-0">
+            <ul class="reviewEmo">
+              <li><a href="#">👍</a></li>
+              <li><a href="#">👎</a></li>
+              <li><a href="#">❤️</a></li>
+            </ul>
+          </div>
+        </nav> --}}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </section>
+</div>
 <script src="/js/dashboard.js"></script>
