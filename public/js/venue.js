@@ -33,8 +33,6 @@ const submitNewEvent = async (event) => {
 const submitNewReview = async (event) => {
   event.preventDefault();
 
-  console.log(event.target);
-  // const countRating= document.querySelector("#count-rating").value
   let stars = document.querySelectorAll("input[name=estrellas]");
 
   let score;
@@ -46,9 +44,7 @@ const submitNewReview = async (event) => {
 
   const text = document.querySelector("#reviewText").value.trim();
   const venueId = event.target.dataset.venueId;
-
-  console.log(text, venueId, score);
-  if (text && venueId && score) {
+  if (venueId && score) {
     const response = await fetch("/api/reviews", {
       method: "POST",
       body: JSON.stringify({ venueId, text, score }),
