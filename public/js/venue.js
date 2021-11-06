@@ -155,4 +155,27 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector("#newReview")
     .addEventListener("submit", submitNewReview);
+
+  // Calender Scripting Start
+  let calendarEl = document.querySelector('#jsCalender');
+  // let myCalendar = jsCalendar.new(calenderEl);
+
+  // myCalendar.onDateClick((event, date) => {
+  //   console.log(event);
+  //   console.log(date.toLocaleString());
+  // });
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    height: 500,
+    dateClick: (event) =>{
+      toggleEventModal()
+      document.querySelector("#eventDate").value = event.dateStr
+      console.log(event)
+      console.log(event.date.toLocaleString())
+    }
+  });
+  calendar.render();
+  calendar.addEvent({title: 'test party', start: '2021-11-14', allDay: true})
+  calendar.render()
 });

@@ -90,7 +90,7 @@
                 <div class="flex flex-col">
                   <label for="eventDate" class="text-left">Date of Event</label>
                   <input
-                    type="datetime-local"
+                    type="date"
                     id="eventDate"
                     class="border"
                     required
@@ -200,9 +200,9 @@
   </section>
   {{!END Title and Description}}
   {{!-- START CALENDER SECTION --}}
-  <section class="flex- flex-col col-span-3 lg:col-span-2">
-    <div>
-      <div class="auto-jsCalendar"></div>
+  <section class="flex flex-col items-center col-span-3 lg:col-span-2 text-sm">
+    <div class="w-full">
+      <div id="jsCalender" data-month-format="month YYYY" data-day-format="DDD"></div>
     </div>
   </section>
   {{!-- END CALENDER SECTION --}}
@@ -289,5 +289,6 @@
   {{! END EVENTS & REVIEWS }}
 </div>
 <script src="https://unpkg.com/simple-jscalendar@1.4.3/source/jsCalendar.min.js" integrity="sha384-JqNLUzAxpw7zEu6rKS/TNPZ5ayCWPUY601zaig7cUEVfL+pBoLcDiIEkWHjl07Ot" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 
 <script src="/js/venue.js"></script>
