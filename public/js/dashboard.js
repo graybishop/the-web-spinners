@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     target.classList.add('animate__animated', 'animate__headShake', 'bg-yellow-100', 'p-3')
   }
 
+
   document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime);
 
   tippy('#profileImage', {
@@ -127,5 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
   tippy('#bookedEventsSection', {
     content: "This is your booked event...",
     allowHTML: true,
+
+  document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
+  tippy('#editBtn',{
+  content: 'Edit your review here',
+      allowHTML: true,
+
   });
 });
