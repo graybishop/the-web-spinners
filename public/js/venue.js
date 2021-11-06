@@ -62,7 +62,7 @@ const submitNewReview = async (event) => {
     }
 
     if (response.ok) {
-      // location.reload();
+      location.reload();
     } else {
       alert(response.json());
     }
