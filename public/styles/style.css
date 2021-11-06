@@ -8,6 +8,29 @@
     @apply px-4 py-2 bg-blue-600 text-white rounded;
   }
 }
+:root{
+  --bg-pink: #f8f6f6;
+  --bg-blue: #3C91E6;
+  --bg-black: #342E37;
+  --bg-green: #61beba;
+
+}
+
+#footer{
+  background-color:white;
+}
+.bgContact{
+  background-color:#1F2937;
+}
+#name{
+  font-size:18px;
+  margin: bottom 10px;
+}
+
+user{
+  font-weight: bold;
+}
+
 
 .reviewEmo li{
   display:inline-block;
@@ -24,13 +47,7 @@ border-radius:5px;
 
 }
 
-:root{
-  --bg-pink: #f8f6f6;
-  --bg-blue: #3C91E6;
-  --bg-black: #342E37;
-  --bg-green: #00A676;
 
-}
 #editBtn{
   float: right
 }
