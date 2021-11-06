@@ -9,7 +9,7 @@ const submitNewEvent = async (event) => {
 
   const name = document.querySelector("#eventName").value.trim();
   const description = document.querySelector("#eventDescription").value.trim();
-  const date = document.querySelector("#eventDate").value;
+  const date = document.querySelector("#eventDate").value + ` 12:00:00`
   const venueId = event.target.dataset.venueId;
   const numberOfPeople = document.querySelector("#numberOfPeople");
   const cost =
@@ -33,8 +33,6 @@ const submitNewEvent = async (event) => {
 const submitNewReview = async (event) => {
   event.preventDefault();
 
-  console.log(event.target);
-  // const countRating= document.querySelector("#count-rating").value
   let stars = document.querySelectorAll("input[name=estrellas]");
 
   let score;
@@ -46,9 +44,7 @@ const submitNewReview = async (event) => {
 
   const text = document.querySelector("#reviewText").value.trim();
   const venueId = event.target.dataset.venueId;
-
-  console.log(text, venueId, score);
-  if (text && venueId && score) {
+  if (venueId && score) {
     const response = await fetch("/api/reviews", {
       method: "POST",
       body: JSON.stringify({ venueId, text, score }),
@@ -62,7 +58,7 @@ const submitNewReview = async (event) => {
     }
 
     if (response.ok) {
-      // location.reload();
+      location.reload();
     } else {
       alert(response.json());
     }
@@ -127,6 +123,40 @@ const removeVenue = async (event) => {
   }
 };
 
+const updateEventsForCalendar = async (calenderEl, calendarInstance) => {
+  const venue = calenderEl.dataset.venueId;
+
+  if (venue) {
+    const response = await fetch(`/api/events/by-venue/${venue}`);
+
+    //redirects user if they are not logged in
+    if (response.redirected) {
+      document.location = response.url;
+      return;
+    }
+
+    if (response.ok) {
+      let eventList = await response.json()
+      let parsedEventList = eventList.map((element)=>{
+        console.log(element.date)
+        console.log(new Date(element.date))
+        let newEvent = {
+          title: element.name,
+          start: element.date,
+          allDay:true
+        }
+        return newEvent
+      })
+      for (const event of parsedEventList) {
+        calendarInstance.addEvent(event)
+      }
+      calendarInstance.render()
+    } else {
+      alert(response.statusText);
+    }
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   //Main book event button
   document
@@ -155,4 +185,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector("#newReview")
     .addEventListener("submit", submitNewReview);
+
+  // Calender Scripting Start
+  let calendarEl = document.querySelector('#jsCalender');
+  if (calendarEl){
+    // eslint-disable-next-line no-undef
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      height: 500,
+      dateClick: (event) => {
+        toggleEventModal();
+        document.querySelector("#eventDate").value = event.dateStr;
+      }
+    });
+    updateEventsForCalendar(calendarEl, calendar)
+  }
+
 });

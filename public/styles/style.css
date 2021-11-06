@@ -53,7 +53,6 @@ nav{
 }
 
 .form-titles{
-  background-color: var(--bg-blue);
   color:white;
   margin-bottom: 0;
 }
@@ -96,14 +95,10 @@ input[type="radio"] {
   display: none;
 }
 
-label {
-  color: grey;
-}
-
 .clasificacion {
   direction: rtl;
   unicode-bidi: bidi-override;
-  font-size: 3em;
+  font-size: 2.5rem;
 }
 
 label:hover,
