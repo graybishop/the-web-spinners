@@ -111,20 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime);
 
+  
+  // eslint-disable-next-line no-undef
   tippy('#profileImage', {
     content: 'Your last picture...',
     allowHTML: true,
     animation:"shift-toward-extreme",
     theme:"translucent",
   });
+  // eslint-disable-next-line no-undef
   tippy('#resetFirstTime', {
     content: "Didn't get it the first time?",
     allowHTML: true,
   });
+  // eslint-disable-next-line no-undef
   tippy('#sectionFor3171', {
     content: "Choose these for another event!",
     allowHTML: true,
   });
+  // eslint-disable-next-line no-undef
   tippy('#bookedEventsSection', {
     content: "This is your booked event...",
     allowHTML: true, })
