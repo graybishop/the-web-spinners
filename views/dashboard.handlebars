@@ -1,22 +1,36 @@
 <section class="container mx-auto lg:w-7/12 xl:grid grid-cols-2 gap-2">
-  {{!-- test buttons --}}
-  <div class="flex flex-col p-4 gap-2 border-white-50 border-4 bg-gray-200 m-4 col-span-2	">
+  {{! test buttons }}
+  <div
+    class="flex flex-col p-4 gap-2 border-white-50 border-4 bg-gray-200 m-4 col-span-2"
+  >
     <div class="border-b-2">
       <h1 class="text-3xl">Test Buttons</h1>
     </div>
     <div>
-      <button class="border-blue-500 border-2 rounded p-2" id='newVenueButton'>Add Random Saved Venue</button>
+      <button
+        class="border-blue-500 border-2 rounded p-2"
+        id="newVenueButton"
+      >Add Random Saved Venue</button>
     </div>
     <div>
-      <button class="border-blue-500 border-2 rounded p-2" id='newEventButton'>Add Random Event </button>
+      <button
+        class="border-blue-500 border-2 rounded p-2"
+        id="newEventButton"
+      >Add Random Event </button>
     </div>
   </div>
-  {{!-- User Info Section --}}
-  <div class="flex flex-row p-4 col-span-2 gap-2 ">
-    <div class="border-r-2 flex-1 flex flex-col items-center p-4 animate__animated animate__fadeInLeft ">
+  {{! User Info Section }}
+  <div class="flex flex-row p-4 col-span-2 gap-2">
+    <div
+      class="border-r-2 flex-1 flex flex-col items-center p-4 animate__animated animate__fadeInLeft"
+    >
       <h1 class="text-3xl pb-2">Hello, {{user.username}}!</h1>
-      <img class="object-contain rounded border shadow max-h-80" id="profileImage"
-        src="https://source.unsplash.com/featured/1000x1000/?profile" alt="user profile image">
+      <img
+        class="object-contain rounded border shadow max-h-80"
+        id="profileImage"
+        src="https://source.unsplash.com/featured/1000x1000/?profile"
+        alt="user profile image"
+      />
     </div>
     <div class="flex-1 p-4 flex flex-col gap-2">
       <div>
@@ -31,9 +45,9 @@
         <h3 class="text-xl border-b">Saved Venues</h3>
         <p>
           {{#if user.venues.length}}
-          {{user.venues.length}}
+            {{user.venues.length}}
           {{else}}
-          0
+            0
           {{/if}}
         </p>
       </div>
@@ -41,9 +55,9 @@
         <h3 class="text-xl border-b">Booked Events</h3>
         <p>
           {{#if user.events.length}}
-          {{user.events.length}}
+            {{user.events.length}}
           {{else}}
-          0
+            0
           {{/if}}
         </p>
       </div>
@@ -51,80 +65,108 @@
         <h3 class="text-xl border-b">Written Reviews</h3>
         <p>
           {{#if user.reviews.length}}
-          {{user.reviews.length}}
+            {{user.reviews.length}}
           {{else}}
-          0
+            0
           {{/if}}
         </p>
       </div>
       <div>
-        <button class="border-yellow-500 border-2 rounded p-1 hover:bg-yellow-500 hover:text-white" id="resetFirstTime">Show Tutorial Again</button>
+        <button
+          class="border-yellow-500 border-2 rounded p-1 hover:bg-yellow-500 hover:text-white"
+          id="resetFirstTime"
+        >Show Tutorial Again</button>
       </div>
     </div>
   </div>
 
-  {{!--Saved Places Section --}}
+  {{!Saved Places Section }}
   {{#if user.venues.length}}
-  <div class="flex flex-col p-4" id='savedVenuesSection'>
-    <div class="border-b-2 mb-2 ">
-      <h1 class="text-3xl">Saved Venues</h1>
-    </div>
-    {{#each user.venues as |venue|}}
-    <div class="flex flex-row justify-between mb-2" id='sectionFor{{venue.id}}'>
-      <div class="flex flex-col">
-        <a class="underline " href="/venues/{{venue.id}}">{{venue.location}}</a>
-        <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
+    <div class="flex flex-col p-4" id="savedVenuesSection">
+      <div class="border-b-2 mb-2">
+        <h1 class="text-3xl">Saved Venues</h1>
       </div>
-      <div>
-        <button class="border-red-500 border-2 rounded p-2" data-venue-id='{{venue.id}}'>Remove</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-  {{!-- Booked Events Section --}}
-  {{#if user.events.length}}
-  {{!-- (`id`,`name`,`description`,`date`,`createdAt`,`updatedAt`,`venueId`,`userId`) --}}
-  <div class="flex flex-col p-4" id='bookedEventsSection'>
-    <div class="border-b-2 mb-2">
-      <h1 class="text-3xl">Booked Events</h1>
-    </div>
-    {{#each user.events as |event|}}
-    <div class="flex flex-row justify-between mb-2">
-      <div class="flex flex-col">
-        <div>
-          <a class="underline font-medium	" href="/venues/{{venue.id}}">{{event.name}}</a>
-          <p>{{formatDate event.date}}</p>
-          <p class="text-gray-500">{{event.venue.location}}, {{event.venue.city}}, {{event.venue.stateAbbrev}}</p>
+      {{#each user.venues as |venue|}}
+        <div
+          class="flex flex-row justify-between mb-2"
+          id="sectionFor{{venue.id}}"
+        >
+          <div class="flex flex-col">
+            <a
+              class="underline"
+              href="/venues/{{venue.id}}"
+            >{{venue.location}}</a>
+            <p>{{venue.city}}, {{venue.stateAbbrev}}</p>
+          </div>
+          <div>
+            <button
+              class="border-red-500 border-2 rounded p-2"
+              data-venue-id="{{venue.id}}"
+            >Remove</button>
+          </div>
         </div>
-        <p>{{event.description}}</p>
-      </div>
-      <div class="flex-shrink-0">
-        <button class="border-red-500 border-2 rounded p-2" data-event-id='{{event.id}}'>Unbook Event</button>
-      </div>
+      {{/each}}
     </div>
-    {{/each}}
-  </div>
   {{/if}}
 
-  {{!--Reviews Section --}}
-  {{#if user.reviews.length}}
-  <div class="flex flex-col p-4">
-    <div class="border-b-2">
-      <h1 class="text-3xl">Written Reviews</h1>
+  {{! Booked Events Section }}
+  {{#if user.events.length}}
+    {{! (`id`,`name`,`description`,`date`,`createdAt`,`updatedAt`,`venueId`,`userId`) }}
+    <div class="flex flex-col p-4" id="bookedEventsSection">
+      <div class="border-b-2 mb-2">
+        <h1 class="text-3xl">Booked Events</h1>
+      </div>
+      {{#each user.events as |event|}}
+        <div class="flex flex-row justify-between mb-2">
+          <div class="flex flex-col">
+            <div>
+              <a
+                class="underline font-medium"
+                href="/venues/{{venue.id}}"
+              >{{event.name}}</a>
+              <p>{{formatDate event.date}}</p>
+              <p class="text-gray-500">{{event.venue.location}},
+                {{event.venue.city}},
+                {{event.venue.stateAbbrev}}</p>
+            </div>
+            <p>{{event.description}}</p>
+          </div>
+          <div class="flex-shrink-0">
+            <button
+              class="border-red-500 border-2 rounded p-2"
+              data-event-id="{{event.id}}"
+            >Unbook Event</button>
+          </div>
+        </div>
+      {{/each}}
     </div>
+  {{/if}}
 
-    {{#each user.reviews as |review|}}
-    <div>
-      <p> {{review.text}}</p>
+  {{!Reviews Section }}
+  {{#if user.reviews.length}}
+    <div class="flex flex-col p-4">
+      <div class="border-b-2">
+        <h1 class="text-3xl">Written Reviews</h1>
+      </div>
+
+      {{#each user.reviews as |review|}}
+        <div>
+          <p>{{review.createdAt}}</p>
+          <p> {{review.text}}</p>
+        <nav>
+        <div class="group-hover:flex-shrink-0">
+          <button class="border-blue-500 border-2 rounded p-0" id="editBtn"
+            data-event="{{review.id}}">Edit</button>   
+          <ul class="reviewEmo">
+          <li><a href="#">👍</a></li>
+          <li><a href="#">👎</a></li>
+          <li><a href="#">❤️</a></li>
+          </ul>
+          </div>
+        </nav>
+        </div>
+      {{/each}}
     </div>
-    <div class="flex-shrink-0">
-      <button class="border-red-500 border-2 rounded p-2" data-event-id='{{review.id}}'>Edit</button>
-      <button id="myButton">My Button</button>
-    </div>
-    {{/each}}
-  </div>
   {{/if}}
 </section>
 <script src="/js/dashboard.js"></script>

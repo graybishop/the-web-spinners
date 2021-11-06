@@ -109,4 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
+  tippy('#editBtn',{
+  content: 'Edit your review here',
+      allowHTML: true,
+  });
 });
