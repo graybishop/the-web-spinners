@@ -199,7 +199,13 @@
     {{! button section }}
   </section>
   {{!END Title and Description}}
-
+  {{!-- START CALENDER SECTION --}}
+  <section class="flex- flex-col col-span-3 lg:col-span-2">
+    <div>
+      <div class="auto-jsCalendar"></div>
+    </div>
+  </section>
+  {{!-- END CALENDER SECTION --}}
   {{! START EVENTS & REVIEWS }}
   <div class="col-span-3 lg:col-span-2">
     {{! Event Section }}
@@ -282,5 +288,6 @@
   </div>
   {{! END EVENTS & REVIEWS }}
 </div>
+<script src="https://unpkg.com/simple-jscalendar@1.4.3/source/jsCalendar.min.js" integrity="sha384-JqNLUzAxpw7zEu6rKS/TNPZ5ayCWPUY601zaig7cUEVfL+pBoLcDiIEkWHjl07Ot" crossorigin="anonymous"></script>
 
 <script src="/js/venue.js"></script>
