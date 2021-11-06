@@ -108,5 +108,31 @@ document.addEventListener('DOMContentLoaded', () => {
     target.classList.add('animate__animated', 'animate__headShake', 'bg-yellow-100', 'p-3')
   }
 
+
+  document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime);
+
+  tippy('#profileImage', {
+    content: 'Your last picture...',
+    allowHTML: true,
+    animation:"shift-toward-extreme",
+    theme:"translucent",
+  });
+  tippy('#resetFirstTime', {
+    content: "Didn't get it the first time?",
+    allowHTML: true,
+  });
+  tippy('#sectionFor3171', {
+    content: "Choose these for another event!",
+    allowHTML: true,
+  });
+  tippy('#bookedEventsSection', {
+    content: "This is your booked event...",
+    allowHTML: true,
+
   document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
+  tippy('#editBtn',{
+  content: 'Edit your review here',
+      allowHTML: true,
+
+  });
 });
