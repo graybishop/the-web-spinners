@@ -199,12 +199,15 @@
     {{! button section }}
   </section>
   {{!END Title and Description}}
+
   {{!-- START CALENDER SECTION --}}
+  {{#if loggedIn}}
   <section class="flex flex-col items-center col-span-3 lg:col-span-2 text-sm">
     <div class="w-full">
       <div id="jsCalender" data-month-format="month YYYY" data-day-format="DDD" data-venue-id="{{venue.id}}"></div>
     </div>
   </section>
+  {{/if}}
   {{!-- END CALENDER SECTION --}}
   {{! START EVENTS & REVIEWS }}
   <div class="col-span-3 lg:col-span-2">

@@ -9,7 +9,7 @@ const submitNewEvent = async (event) => {
 
   const name = document.querySelector("#eventName").value.trim();
   const description = document.querySelector("#eventDescription").value.trim();
-  const date = document.querySelector("#eventDate").value;
+  const date = document.querySelector("#eventDate").value + ` 12:00:00`
   const venueId = event.target.dataset.venueId;
   const numberOfPeople = document.querySelector("#numberOfPeople");
   const cost =
@@ -192,14 +192,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Calender Scripting Start
   let calendarEl = document.querySelector('#jsCalender');
+  if (calendarEl){
+    // eslint-disable-next-line no-undef
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      height: 500,
+      dateClick: (event) => {
+        toggleEventModal();
+        document.querySelector("#eventDate").value = event.dateStr;
+      }
+    });
+    updateEventsForCalendar(calendarEl, calendar)
+  }
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    height: 500,
-    dateClick: (event) => {
-      toggleEventModal();
-      document.querySelector("#eventDate").value = event.dateStr;
-    }
-  });
-  updateEventsForCalendar(calendarEl, calendar)
 });
