@@ -127,12 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   tippy('#bookedEventsSection', {
     content: "This is your booked event...",
-    allowHTML: true,
+    allowHTML: true, })
 
   document.querySelector('#resetFirstTime').addEventListener('click', resetFirstTime)
-  tippy('#editBtn',{
-  content: 'Edit your review here',
-      allowHTML: true,
 
-  });
 });
