@@ -9,11 +9,9 @@ Review.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    // countRating: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // }
+    score: {
+      type: DataTypes.INTEGER,
+    }
   },
   {
     sequelize,
