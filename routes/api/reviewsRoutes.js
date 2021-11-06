@@ -23,19 +23,19 @@ router.delete('/:id', async (req, res) => {
     return;
   }
 
-  const eventData = await Review.destroy({
+  const reviewDate = await Review.destroy({
     where: {
       id: req.params.id,
       userId: req.session.userId,
     },
   });
 
-  if (!eventData) {
+  if (!reviewDate) {
     res.status(404).json({ message: 'No event found!' });
     return;
   }
 
-  res.status(200).json(eventData);
+  res.status(200).json(reviewDate);
 
 });
 

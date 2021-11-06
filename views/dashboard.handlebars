@@ -104,7 +104,7 @@
 
     {{!Reviews Section }}
     {{#if user.reviews.length}}
-    <div class="flex flex-col p-4 bg-white xl:rounded">
+    <div class="flex flex-col p-4 bg-white xl:rounded" id="writtenReviewsSection">
       <div class="border-b-2">
         <h1 class="text-3xl font-semibold">Written Reviews</h1>
       </div>
@@ -117,7 +117,7 @@
         </div>
         <div class=" flex flex-col gap-2 flex-shrink-0">
           {{!-- <button class="bg-blue-500 text-blue-50 rounded p-2 hover:bg-blue-700" data-event="{{review.id}}">Edit Review</button> --}}
-          <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700" data-event="{{review.id}}">Remove Review</button>
+          <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700" data-review-id="{{review.id}}">Remove Review</button>
         </div>
         {{!-- <nav>
           <div class="group-hover:flex-shrink-0">

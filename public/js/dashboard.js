@@ -15,6 +15,21 @@ const removeVenue = async (event) => {
   }
 };
 
+const removeReview = async (event) => {
+  const reviewId = event.target.dataset.reviewId
+  if (reviewId) {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert(response.statusText);
+    }
+  }
+};
+
 const removeEvent = async (event) => {
   const eventId = event.target.dataset.eventId;
   if (eventId) {
@@ -42,6 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let savedVenuesSection = document.querySelector('#savedVenuesSection')
   if(savedVenuesSection){
     savedVenuesSection.addEventListener('click', removeVenue);
+  }
+
+  let writtenReviews = document.querySelector('#writtenReviewsSection')
+  if(writtenReviews){
+    writtenReviews.addEventListener('click', removeReview);
   }
 
   document
