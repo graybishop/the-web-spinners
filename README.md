@@ -4,7 +4,7 @@
 
 ## Description
 
-A fully featured web app that observes the MVC (model–view–controller) design pattern.
+A fully featured web app that observes the MVC (model–view–controller) design pattern. Using the conceit of haunted locations, we provide an intuitive user experience for a user to book a cheap venue for their next party.
 
 The application enables users to find events nearby their residence and to book an event for any type of celebration, whether it be a birthday, Bar mitzvah, wedding etc. The website allows the user to schedule an event and book a venue as per their requirements. Having selected their venue, they have now booked their destination for their spooky celebration.
 
