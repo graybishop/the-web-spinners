@@ -1,4 +1,5 @@
-# The-Web-Spinners
+
+# the-web-spinners
 
 ![badge](https://img.shields.io/badge/license-MIT-green)
 
