@@ -112,22 +112,17 @@
       {{#each user.reviews as |review|}}
       <div class="flex flex-row justify-between items-center pb-1 border-b mb-4">
         <div class="flex-auto">
-          <p>{{formatDate review.createdAt}}</p>
-          <p> {{review.text}}</p>
+          <p>Written on {{formatDate review.createdAt}} for <a class="underline" href="/venues/{{venue.id}}">{{review.venue.location}}</a></p>
+          <p>Score: <span class="font-semibold">{{review.score}}</span>/5</p>
+          {{#if review.text}}
+          <p>{{review.text}}</p>
+          {{else}}
+          <p class="text-gray-500">No written review given...</p>
+          {{/if}}
         </div>
         <div class=" flex flex-col gap-2 flex-shrink-0">
-          {{!-- <button class="bg-blue-500 text-blue-50 rounded p-2 hover:bg-blue-700" data-event="{{review.id}}">Edit Review</button> --}}
           <button class="bg-red-500 text-red-50 rounded p-2 hover:bg-red-700" data-review-id="{{review.id}}">Remove Review</button>
         </div>
-        {{!-- <nav>
-          <div class="group-hover:flex-shrink-0">
-            <ul class="reviewEmo">
-              <li><a href="#">👍</a></li>
-              <li><a href="#">👎</a></li>
-              <li><a href="#">❤️</a></li>
-            </ul>
-          </div>
-        </nav> --}}
       </div>
       {{/each}}
     </div>
