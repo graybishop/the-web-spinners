@@ -87,13 +87,18 @@ router.get('/dashboard', async (req, res) => {
       exclude: ['password'],
     },
     include: [
-      Venue, {
+      Venue, 
+      {
         model: Event,
         include: [Venue]
       },
-      Review
+      {
+        model: Review,
+        include: [Venue]
+      },
     ]
   });
+
   res.render('dashboard', {
     title: 'Dashboard',
     loggedIn: req.session.loggedIn,

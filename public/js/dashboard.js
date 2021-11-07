@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // eslint-disable-next-line no-undef
   tippy('#profileImage', {
-    content: 'Your last picture...',
+    content: `Your profile picture... it's looking good!`,
     allowHTML: true,
     animation:"shift-toward-extreme",
     theme:"translucent",
@@ -90,12 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     allowHTML: true,
   });
   // eslint-disable-next-line no-undef
-  tippy('#sectionFor3171', {
-    content: "Choose these for another event!",
-    allowHTML: true,
-  });
-  // eslint-disable-next-line no-undef
   tippy('#bookedEventsSection', {
-    content: "This is your booked event...",
+    content: "These are your booked events...",
     allowHTML: true, })
 });
