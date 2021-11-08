@@ -9,6 +9,10 @@ A fully featured web app that observes the MVC (model–view–controller) desig
 
 The application enables users to find events nearby their residence and to book an event for any type of celebration, whether it be a birthday, Bar mitzvah, wedding etc. The website allows the user to schedule an event and book a venue as per their requirements. Having selected their venue, they have now booked their destination for their spooky celebration.
 
+## Link to deployment
+
+[Deployed on heroku. Click to follow link.](https://safe-garden-63694.herokuapp.com/)
+
 ## Features
 
 ### Fully Responsive Design
@@ -60,6 +64,14 @@ On the venue pages, logged in users may book events through the 'book event' but
 ### User's Written Reviews
 
 Each venue page also provides a review form for a logged in user to post a new review of the location. They must choose a score from 1 to 5 stars, and may optionally add a text description. Users can see their list of written reviews and remove items from the list on their user dashboard.
+
+## Screenshots
+
+![home page](readme_assets/Home%20Page%20Screenshot.png)
+
+![feature venues section](readme_assets/Featured%20Venues%20Screenshot.png)
+
+![venue page](readme_assets/Venue%20Page%20Screenshot.png)
 
 ## Technologies Used
 
